@@ -2059,13 +2059,14 @@ fullset-feature__item-pad {
   left: 50%;
   z-index: 50;
   display: grid;
-  grid-template-columns: 1fr 1px 0.92fr;
+  grid-template-columns: 1fr 1px auto;
   align-items: center;
+  align-content: center;
   column-gap: 26px;
   width: min(833px, calc(100vw - 16px));
   max-width: none;
   height: 128px;
-  padding: 0;
+  padding: 0 26px 0 0;
   border: 0;
   border-radius: 999px;
   background:
@@ -2085,6 +2086,7 @@ fullset-feature__item-pad {
 
 .floating-buy::before {
   grid-column: 2;
+  grid-row: 1;
   width: 1px;
   height: 56px;
   background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.28), transparent);
@@ -2093,12 +2095,12 @@ fullset-feature__item-pad {
 
 .floating-buy__info {
   grid-column: 1;
+  grid-row: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-width: 0;
-  height: 100%;
   padding-left: 64px;
   text-align: center;
 }
@@ -2126,6 +2128,7 @@ fullset-feature__item-pad {
 
 .floating-buy__cta {
   grid-column: 3;
+  grid-row: 1;
   position: relative;
   display: flex;
   align-items: center;
@@ -2156,41 +2159,41 @@ fullset-feature__item-pad {
 
 @media (max-width: 859px) {
   .floating-buy {
-    width: calc(100vw - 12px); /* 좌우 6px씩만 여백 */
+    width: min(540px, calc(100vw - 12px)); /* 너무 넓어지지 않게 폭 제한 */
     max-width: none;
-    height: 76px;
+    height: clamp(78px, 12.5vw, 96px);
 
-    bottom: max(12px, env(safe-area-inset-bottom));
+    bottom: max(14px, env(safe-area-inset-bottom));
 
-    column-gap: 14px;
-    grid-template-columns: 0.78fr 1px 1.22fr;
+    column-gap: clamp(14px, 3vw, 24px);
+    grid-template-columns: 1fr 1px auto;
+    padding: 0 clamp(8px, 1.6vw, 14px) 0 0;
   }
 
   .floating-buy::before {
-    height: 44px;
+    height: clamp(42px, 7vw, 56px);
   }
 
   .floating-buy__info {
-    padding-left: 18px;
+    padding-left: clamp(14px, 4.5vw, 34px);
   }
 
   .floating-buy__info strong {
-    font-size: 11px;
+    font-size: clamp(12px, 3.4vw, 17px);
   }
 
   .floating-buy__info em {
-    margin-top: 5px;
-    font-size: 18px;
+    margin-top: 6px;
+    font-size: clamp(19px, 5.2vw, 25px);
   }
 
   .floating-buy__cta {
-    width: 172px;
-    height: 48px;
-    right: 6px;
+    width: clamp(146px, 42vw, 200px);
+    height: clamp(50px, 8.5vw, 64px);
   }
 
   .floating-buy__cta-text {
-    font-size: 18px;
+    font-size: clamp(18px, 4.6vw, 23px);
     font-weight: 600;
   }
 }
