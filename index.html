@@ -10,8 +10,6 @@
 
   <!-- LCP 최적화: 히어로 제품 이미지(최상단 LCP 후보) 최우선 로드 -->
   <link rel="preload" as="image" href="./images/hero.webp" fetchpriority="high" />
-  <!-- 인트로 영상 포스터(히어로 다음) 미리 로드 -->
-  <link rel="preload" as="image" href="./videos/intro-poster.webp?v=2" />
 
   <!-- Favicon (rudix.biz 동일 자산 자체호스팅) -->
   <link rel="shortcut icon" href="./favicon.ico" />
@@ -59,14 +57,6 @@
       <p class="hero__footer">RUDIMENT GUIDE EDITION</p>
     </section>
 
-    <!-- 인트로 영상 (히어로 다음 / 자동재생·무한반복·무음, 화면 근처에서만 로드) -->
-    <section class="intro-video" style="position: relative; width: 100%; line-height: 0;">
-      <video id="introVideo" autoplay muted loop playsinline preload="none" poster="./videos/intro-poster.webp?v=2" width="1080" height="608" style="width: 100%; height: auto; display: block;">
-        <source src="./videos/intro.mp4?v=2" type="video/mp4" />
-      </video>
-      <button id="introUnmute" type="button" onclick="rdxUnmute()" aria-label="소리 켜기" style="position: absolute; top: 16px; right: 16px; z-index: 5; display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 30px; padding: 10px 18px; font-size: 15px; font-weight: 700; line-height: 1; cursor: pointer; font-family: inherit; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);">🔊 소리 켜기</button>
-    </section>
-
     <section class="brand-story" aria-labelledby="brand-story-title">
       <div class="brand-story__content">
         <h2 id="brand-story-title">왜 루딕스인가요?</h2>
@@ -86,6 +76,14 @@
           </p>
         </div>
       </div>
+    </section>
+
+    <!-- 인트로 영상 (brand-story 다음 / 자동재생·무한반복·무음, 화면 근처에서만 로드) -->
+    <section class="intro-video" style="position: relative; width: 100%; line-height: 0;">
+      <video id="introVideo" autoplay muted loop playsinline preload="none" poster="./videos/intro-poster.webp?v=2" width="1080" height="608" style="width: 100%; height: auto; display: block;">
+        <source src="./videos/intro.mp4?v=2" type="video/mp4" />
+      </video>
+      <button id="introUnmute" type="button" onclick="rdxUnmute()" aria-label="소리 켜기" style="position: absolute; top: 16px; right: 16px; z-index: 5; display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 30px; padding: 10px 18px; font-size: 15px; font-weight: 700; line-height: 1; cursor: pointer; font-family: inherit; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);">🔊 소리 켜기</button>
     </section>
 
     <section class="news" aria-labelledby="news-title">
