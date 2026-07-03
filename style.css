@@ -6,7 +6,31 @@
   font-display: swap;
 }
 
-/* Noto Sans KR: Google Fonts 동적 서브셋 CDN 사용 (기존 10MB 로컬 TTF 제거) — index.html <head>의 link 참고 */
+/* Noto Sans KR: 자체호스팅 서브셋 (페이지 글자만, 4개 무게) — Google Fonts 외부의존 제거 */
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("./fonts/NotoSansKR-300.subset.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("./fonts/NotoSansKR-400.subset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("./fonts/NotoSansKR-500.subset.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("./fonts/NotoSansKR-700.subset.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
 
 @font-face {
   font-family: "Pretendard";
