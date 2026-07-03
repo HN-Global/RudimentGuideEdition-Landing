@@ -83,7 +83,7 @@
       <video id="introVideo" autoplay muted loop playsinline preload="none" poster="./videos/intro-poster.webp?v=2" width="1080" height="608" style="width: 100%; height: auto; display: block;">
         <source src="./videos/intro.mp4?v=2" type="video/mp4" />
       </video>
-      <button id="introUnmute" type="button" onclick="rdxUnmute()" aria-label="소리 켜기" style="position: absolute; top: 16px; right: 16px; z-index: 5; display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 30px; padding: 10px 18px; font-size: 15px; font-weight: 700; line-height: 1; cursor: pointer; font-family: inherit; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);">🔊 소리 켜기</button>
+      <button id="introUnmute" type="button" onclick="rdxToggleSound()" aria-label="소리 켜기" style="position: absolute; top: 16px; right: 16px; z-index: 5; display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 30px; padding: 10px 18px; font-size: 15px; font-weight: 700; line-height: 1; cursor: pointer; font-family: inherit; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);">🔊 소리 켜기</button>
     </section>
 
     <section class="news" aria-labelledby="news-title">
@@ -587,20 +587,29 @@
 
   <script src="./script.js?v=9"></script>
 
-  <!-- 인트로 영상 소리 켜기 -->
+  <!-- 인트로 영상 소리 켜기/끄기 토글 -->
   <script>
-    function rdxUnmute() {
+    function rdxToggleSound() {
+      var v = document.getElementById('introVideo');
+      if (!v) return;
+      v.muted = !v.muted;
+      if (!v.muted) {
+        v.volume = 1;
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+      }
+      rdxSyncSoundBtn();
+    }
+    function rdxSyncSoundBtn() {
       var v = document.getElementById('introVideo');
       var b = document.getElementById('introUnmute');
-      if (!v) return;
-      v.muted = false; v.volume = 1;
-      var p = v.play(); if (p && p.catch) p.catch(function () {});
-      if (b) b.style.display = 'none';
+      if (!v || !b) return;
+      b.textContent = v.muted ? '🔊 소리 켜기' : '🔇 소리 끄기';
+      b.setAttribute('aria-label', v.muted ? '소리 켜기' : '소리 끄기');
     }
     (function () {
       var v = document.getElementById('introVideo');
-      var b = document.getElementById('introUnmute');
-      if (v && b) v.addEventListener('volumechange', function () { if (!v.muted) b.style.display = 'none'; });
+      if (v) v.addEventListener('volumechange', rdxSyncSoundBtn);
+      rdxSyncSoundBtn();
     })();
   </script>
 </body>
