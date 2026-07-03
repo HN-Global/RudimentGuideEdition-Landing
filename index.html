@@ -30,7 +30,12 @@
   <meta name="twitter:description" content="드럼 입문자를 위한 최고의 가치. 올바른 시작의 기준을 만나보세요." />
   <meta name="twitter:image" content="https://edition.rudix.biz/images/og-image.png" />
 
-  <link rel="stylesheet" href="./style.css?v=20260626-7" />
+  <!-- Noto Sans KR: Google Fonts 동적 서브셋 (10MB 로컬폰트 대체) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" />
+
+  <link rel="stylesheet" href="./style.css?v=20260703-3" />
 </head>
 
 <body>
@@ -45,7 +50,7 @@
 
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero__content">
-        <img class="hero__logo" src="./images/logo-white.png" alt="Rudix" width="206" height="48" />
+        <img class="hero__logo" src="./images/logo-white.webp" alt="Rudix" width="206" height="48" />
 
         <div class="hero__edition" aria-label="루디먼트 가이드 에디션">
           <span aria-hidden="true"></span>
@@ -99,7 +104,7 @@
             <p class="news__source">경상일보</p>
             <h3>루딕스, 연주 환경 고려한<br />하이엔드 드럼의자 라인업 공개</h3>
           </div>
-          <img src="./images/6/news1.jpg" alt="루딕스 하이엔드 드럼의자 라인업" />
+          <img loading="lazy" decoding="async" src="./images/6/news1.webp" alt="루딕스 하이엔드 드럼의자 라인업" />
         </article>
 
         <article class="news__item">
@@ -108,7 +113,7 @@
             <p class="news__source">시민일보</p>
             <h3>루딕스, 드럼 입문 올인원 패키지<br />'루디먼트 가이드 에디션' 공식 출시</h3>
           </div>
-          <img src="./images/6/news3.jpg" alt="루딕스 루디먼트 가이드 에디션 패키지" />
+          <img loading="lazy" decoding="async" src="./images/6/news3.webp" alt="루딕스 루디먼트 가이드 에디션 패키지" />
         </article>
 
         <article class="news__item">
@@ -117,7 +122,7 @@
             <p class="news__source">한국목재신문</p>
             <h3>루딕스, 8종 하이엔드 드럼의자<br />라인업 선보여</h3>
           </div>
-          <img src="./images/6/news2.jpg" alt="루딕스 하이엔드 드럼의자" />
+          <img loading="lazy" decoding="async" src="./images/6/news2.webp" alt="루딕스 하이엔드 드럼의자" />
         </article>
 
         <article class="news__item">
@@ -126,7 +131,7 @@
             <p class="news__source">경상일보</p>
             <h3>루딕스, 글로벌 박람회 분석 기반<br />드럼 품질 기준 제시</h3>
           </div>
-          <img src="./images/6/news4.jpg" alt="글로벌 박람회에서 루딕스 드럼 패드를 연주하는 모습" />
+          <img loading="lazy" decoding="async" src="./images/6/news4.webp" alt="글로벌 박람회에서 루딕스 드럼 패드를 연주하는 모습" />
         </article>
       </div>
     </section>
@@ -139,7 +144,7 @@
           <span>평범했던 어제,</span>
           <strong>가장 특별한 시작을 엽니다</strong>
         </h2>
-        <img src="./images/title-divider.png" alt="" aria-hidden="true" />
+        <img loading="lazy" decoding="async" src="./images/title-divider.webp" alt="" aria-hidden="true" />
       </header>
 
       <p class="package__copy">
@@ -150,10 +155,10 @@
 
     <section class="guidebook" aria-labelledby="guidebook-title">
       <div class="guidebook__round-light" aria-hidden="true">
-        <img class="guidebook__round-light-image guidebook__round-light-image--top" src="./images/guidebook-round.png"
+        <img loading="lazy" decoding="async" class="guidebook__round-light-image guidebook__round-light-image--top" src="./images/guidebook-round.webp"
           alt="" />
-        <img class="guidebook__round-light-image guidebook__round-light-image--bottom"
-          src="./images/guidebook-round.png" alt="" />
+        <img loading="lazy" decoding="async" class="guidebook__round-light-image guidebook__round-light-image--bottom"
+          src="./images/guidebook-round.webp" alt="" />
       </div>
 
       <header class="guidebook__header">
@@ -164,7 +169,7 @@
       </header>
 
       <div class="guidebook__visual">
-        <img class="guidebook__book" src="./images/guidebook.png" alt="Mastering The Rudiment 가이드북" />
+        <img loading="lazy" decoding="async" class="guidebook__book" src="./images/guidebook.webp" alt="Mastering The Rudiment 가이드북" />
 
         <div class="guidebook__qr" aria-label="QR로 바로 연결">
           <svg class="guidebook__qr-ring" viewBox="0 0 280 280" aria-hidden="true">
@@ -172,7 +177,7 @@
           </svg>
           <span class="guidebook__qr-dot" aria-hidden="true"></span>
           <span class="guidebook__qr-content">
-            <img src="./images/qr.png" alt="" />
+            <img loading="lazy" decoding="async" src="./images/qr.webp" alt="" />
             <strong>QR로 바로 연결</strong>
           </span>
         </div>
@@ -180,19 +185,19 @@
 
       <div class="guidebook__features">
         <article>
-          <img class="guidebook__feature-icon" src="./images/icon/video-icon.png" alt="" />
+          <img loading="lazy" decoding="async" class="guidebook__feature-icon" src="./images/icon/video-icon.webp" alt="" />
           <h3>풀타임 동영상 가이드 탑재</h3>
           <p>매일 25분, 교재 속 <em>QR코드</em><br />하나로 <em>7일 커리큘럼</em>이<br />바로 연결됩니다.</p>
         </article>
 
         <article>
-          <img class="guidebook__feature-icon" src="./images/icon/drum-pad-icon.png" alt="" />
+          <img loading="lazy" decoding="async" class="guidebook__feature-icon" src="./images/icon/drum-pad-icon.webp" alt="" />
           <h3>7일간의 리듬 DNA각인</h3>
           <p>고난도 콤비네이션까지<br />연주의 <em>기본 문법을 단계별로</em><br />빠짐없이 마스터합니다.</p>
         </article>
 
         <article>
-          <img class="guidebook__feature-icon" src="./images/icon/book-icon.png" alt="" />
+          <img loading="lazy" decoding="async" class="guidebook__feature-icon" src="./images/icon/book-icon.webp" alt="" />
           <h3>방대한 확장 가이드</h3>
           <p>7일 완주 후에도 이어지는<br />전 세계 드러머들의 <em>공통 언어,</em><br /><em>PAS 국제 표준 루디먼트 40종 수록</em></p>
         </article>
@@ -202,7 +207,7 @@
     <section class="core-feature core-feature--01" aria-labelledby="core-feature-01-title">
       <header class="core-feature__header">
         <p class="core-feature__eyebrow">CHECK POINT</p>
-        <img class="core-feature__divider" src="./images/title-divider.png" alt="" />
+        <img loading="lazy" decoding="async" class="core-feature__divider" src="./images/title-divider.webp" alt="" />
         <h2 id="core-feature-01-title">
           기능을 넘어선<br />
           디테일의 차이
@@ -211,13 +216,13 @@
       </header>
 
       <div class="core-feature__step">
-        <img src="./images/step-circle.png" alt="" aria-hidden="true" />
+        <img loading="lazy" decoding="async" src="./images/step-circle.webp" alt="" aria-hidden="true" />
         <strong>01</strong>
       </div>
       <h3 class="core-feature__name">30cm 대형 패드</h3>
 
       <div class="core-feature__visual">
-        <img src="./images/feature-01-main.jpg" alt="30cm 대형 루딕스 드럼 연습 패드" />
+        <img loading="lazy" decoding="async" src="./images/feature-01-main.webp" alt="30cm 대형 루딕스 드럼 연습 패드" />
         <div class="core-feature__measure" aria-label="패드 너비 30cm">
           <span></span>
           <strong>30cm</strong>
@@ -237,7 +242,7 @@
 
     <section class="core-feature core-feature--02" aria-labelledby="core-feature-02-title">
       <div class="core-feature__step core-feature__step--02">
-        <img src="./images/step-circle.png" alt="" aria-hidden="true" />
+        <img loading="lazy" decoding="async" src="./images/step-circle.webp" alt="" aria-hidden="true" />
         <strong>02</strong>
       </div>
       <h2 id="core-feature-02-title" class="core-feature__name core-feature__name--02">
@@ -245,16 +250,16 @@
       </h2>
 
       <div class="stand-system">
-        <img class="stand-system__main" src="./images/feature-02-main.png" alt="루딕스 업그레이드 삼각 스탠드 시스템" />
+        <img loading="lazy" decoding="async" class="stand-system__main" src="./images/feature-02-main.webp" alt="루딕스 업그레이드 삼각 스탠드 시스템" />
 
         <div class="stand-system__detail stand-system__detail--top">
-          <img src="./images/feature-02-01.png" alt="정밀 고정 클램프 상세" />
+          <img loading="lazy" decoding="async" src="./images/feature-02-01.webp" alt="정밀 고정 클램프 상세" />
         </div>
         <div class="stand-system__detail stand-system__detail--bottom">
-          <img src="./images/feature-02-02.png" alt="삼각 스탠드 상세" />
+          <img loading="lazy" decoding="async" src="./images/feature-02-02.webp" alt="삼각 스탠드 상세" />
         </div>
         <div class="stand-system__detail stand-system__detail--right">
-          <img src="./images/feature-02-03.png" alt="논슬립 고무발 상세" />
+          <img loading="lazy" decoding="async" src="./images/feature-02-03.webp" alt="논슬립 고무발 상세" />
         </div>
 
         <span class="stand-system__line stand-system__line--top" aria-hidden="true"></span>
@@ -274,28 +279,28 @@
 
     <section class="core-feature core-feature--03" aria-labelledby="core-feature-03-title">
       <div class="core-feature__step core-feature__step--03">
-        <img src="./images/step-circle.png" alt="" aria-hidden="true" />
+        <img loading="lazy" decoding="async" src="./images/step-circle.webp" alt="" aria-hidden="true" />
         <strong>03</strong>
       </div>
       <h2 id="core-feature-03-title" class="core-feature__name core-feature__name--03">
         프로페셔널 페어 매칭 스틱
       </h2>
 
-      <img class="stick-feature__main" src="./images/feature-03-main.jpg" alt="정밀 매칭된 루딕스 드럼 스틱 한 쌍" />
+      <img loading="lazy" decoding="async" class="stick-feature__main" src="./images/feature-03-main.webp" alt="정밀 매칭된 루딕스 드럼 스틱 한 쌍" />
 
       <div class="stick-feature__details">
         <article>
-          <img class="stick-feature-direction__image stick-feature__image--first" src="./images/feature-03-01.png" alt="북미산 히코리 원목 스틱" />
+          <img loading="lazy" decoding="async" class="stick-feature-direction__image stick-feature__image--first" src="./images/feature-03-01.webp" alt="북미산 히코리 원목 스틱" />
           <h3>북미산 히코리 원목</h3>
         </article>
 
         <article>
-          <img class="stick-feature-direction__image stick-feature__image--second" src="./images/feature-03-02.png" alt="1그램 이내 정밀 매칭된 드럼 스틱" />
+          <img loading="lazy" decoding="async" class="stick-feature-direction__image stick-feature__image--second" src="./images/feature-03-02.webp" alt="1그램 이내 정밀 매칭된 드럼 스틱" />
           <h3>1g 이내 정밀 매칭</h3>
         </article>
 
         <article class="stick-feature__detail--balance">
-          <img src="./images/feature-03-03.jpg" alt="" />
+          <img loading="lazy" decoding="async" src="./images/feature-03-03.webp" alt="" />
           <h3>균형 잡힌 밸런스</h3>
         </article>
       </div>
@@ -310,28 +315,28 @@
 
     <section class="core-feature core-feature--04" aria-labelledby="core-feature-04-title">
       <div class="core-feature__step core-feature__step--04">
-        <img src="./images/step-circle.png" alt="" aria-hidden="true" />
+        <img loading="lazy" decoding="async" src="./images/step-circle.webp" alt="" aria-hidden="true" />
         <strong>04</strong>
       </div>
       <h2 id="core-feature-04-title" class="core-feature__name core-feature__name--04">
         하나로 정리되는 올인원 풀세트
       </h2>
 
-      <img class="fullset-feature__main" src="./images/feature-04-main.jpg" alt="가방 하나에 수납되는 루딕스 올인원 풀세트" />
+      <img loading="lazy" decoding="async" class="fullset-feature__main" src="./images/feature-04-main.webp" alt="가방 하나에 수납되는 루딕스 올인원 풀세트" />
 
       <div class="fullset-feature__box">
         <h3>세트 구성품</h3>
         <div class="fullset-feature__items">
           <article>
-            <img class="fullset-feature__items fullset-feature__items--first" src="./images/feature-04-01.png" alt="30cm 드럼패드" />
+            <img loading="lazy" decoding="async" class="fullset-feature__items fullset-feature__items--first" src="./images/feature-04-01.webp" alt="30cm 드럼패드" />
             
           </article>
           <article>
-            <img class="fullset-feature__items fullset-feature__items--second" src="./images/feature-04-02.png" alt="삼각 스탠드" />
+            <img loading="lazy" decoding="async" class="fullset-feature__items fullset-feature__items--second" src="./images/feature-04-02.webp" alt="삼각 스탠드" />
             
           </article>
           <article>
-            <img class="fullset-feature__items fullset-feature__items--third" src="./images/feature-04-03.png" alt="드럼스틱" />
+            <img loading="lazy" decoding="async" class="fullset-feature__items fullset-feature__items--third" src="./images/feature-04-03.webp" alt="드럼스틱" />
             
           </article>
           <p class="fullset-feature__item-pad">30cm 드럼패드</p>
@@ -350,7 +355,7 @@
 
     <section class="brand-philosophy" aria-labelledby="brand-philosophy-title">
       <div class="brand-philosophy__content">
-        <img class="brand-philosophy__logo" src="./images/logo-white.png" alt="Rudix" />
+        <img loading="lazy" decoding="async" class="brand-philosophy__logo" src="./images/logo-white.webp" alt="Rudix" />
         <span class="brand-philosophy__divider" aria-hidden="true"></span>
         <h2 id="brand-philosophy-title">
           <span><em>흔들림 없는 패드</em>가</span>
@@ -371,20 +376,20 @@
     <section class="assembly-step assembly-step--01" aria-labelledby="assembly-step-01-title">
       <div class="assembly-step__rule" aria-hidden="true">
         <span>
-          <img src="./images/assembly-round.png" alt="" />
+          <img loading="lazy" decoding="async" src="./images/assembly-round.webp" alt="" />
           <strong>1</strong>
         </span>
       </div>
       <h2 id="assembly-step-01-title">스탠드 연결</h2>
 
       <div class="assembly-step__visual">
-        <img class="assembly-step__main" src="./images/assembly-01-main.png" alt="펼쳐진 삼각 스탠드" />
+        <img loading="lazy" decoding="async" class="assembly-step__main" src="./images/assembly-01-main.webp" alt="펼쳐진 삼각 스탠드" />
 
         <div class="assembly-step__detail assembly-step__detail--left">
-          <img src="./images/assembly-01-01.png" alt="삼각대 연결부 상세" />
+          <img loading="lazy" decoding="async" src="./images/assembly-01-01.webp" alt="삼각대 연결부 상세" />
         </div>
         <div class="assembly-step__detail assembly-step__detail--right">
-          <img src="./images/assembly-01-02.png" alt="스탠드 고무발 상세" />
+          <img loading="lazy" decoding="async" src="./images/assembly-01-02.webp" alt="스탠드 고무발 상세" />
         </div>
 
         <svg class="assembly-step__connectors" viewBox="0 0 860 584" preserveAspectRatio="none" aria-hidden="true">
@@ -410,24 +415,24 @@
 
     <section class="assembly-direction" aria-labelledby="assembly-direction-title">
       <div class="assembly-direction__visual">
-        <img class="assembly-direction__image assembly-direction__image--left" src="./images/assembly-01-03.png"
+        <img loading="lazy" decoding="async" class="assembly-direction__image assembly-direction__image--left" src="./images/assembly-01-03.webp"
           alt="배송 상태의 패드 홀더" />
 
         <div class="assembly-direction__zoom">
-          <img src="./images/assembly-01-04.png" alt="패드 홀더 측면 나사 상세" />
+          <img loading="lazy" decoding="async" src="./images/assembly-01-04.webp" alt="패드 홀더 측면 나사 상세" />
           <span class="assembly-direction__rotate" aria-hidden="true">
-            <img src="./images/icon/icon-02.png" alt="" />
+            <img loading="lazy" decoding="async" src="./images/icon/icon-02.webp" alt="" />
           </span>
         </div>
 
-        <img class="assembly-direction__image assembly-direction__image--right" src="./images/assembly-01-05.png"
+        <img loading="lazy" decoding="async" class="assembly-direction__image assembly-direction__image--right" src="./images/assembly-01-05.webp"
           alt="방향이 변경된 패드 홀더" />
 
         <span class="assembly-direction__circle" aria-hidden="true">
-          <img src="./images/icon/icon-01.png" alt="" />
+          <img loading="lazy" decoding="async" src="./images/icon/icon-01.webp" alt="" />
         </span>
         <span class="assembly-direction__arrow-right" aria-hidden="true">
-          <img src="./images/icon/icon-03.png" alt="" />
+          <img loading="lazy" decoding="async" src="./images/icon/icon-03.webp" alt="" />
         </span>
       </div>
 
@@ -444,11 +449,11 @@
 
     <section class="assembly-column" aria-labelledby="assembly-column-title">
       <div class="assembly-column__visual">
-        <img src="./images/assembly-01-06.png" alt="중심봉 높이 조절 나사 상세" />
+        <img loading="lazy" decoding="async" src="./images/assembly-01-06.webp" alt="중심봉 높이 조절 나사 상세" />
 
-        <span class="assembly-column__focus" aria-hidden="true"><img src="./images/icon/icon-04.png" /></span>
-        <span class="assembly-column__turn" aria-hidden="true"><img src="./images/icon/icon-05.png" alt="강조" /></span>
-        <span class="assembly-column__height" aria-hidden="true"><img src="./images/icon/icon-06.png" alt="강조" /></span>
+        <span class="assembly-column__focus" aria-hidden="true"><img loading="lazy" decoding="async" src="./images/icon/icon-04.webp" /></span>
+        <span class="assembly-column__turn" aria-hidden="true"><img loading="lazy" decoding="async" src="./images/icon/icon-05.webp" alt="강조" /></span>
+        <span class="assembly-column__height" aria-hidden="true"><img loading="lazy" decoding="async" src="./images/icon/icon-06.webp" alt="강조" /></span>
       </div>
 
       <div class="assembly-column__copy">
@@ -463,20 +468,20 @@
     <section class="assembly-pad" aria-labelledby="assembly-pad-title">
       <div class="assembly-step__rule assembly-pad__rule" aria-hidden="true">
         <span>
-          <img src="./images/assembly-round.png" alt="" />
+          <img loading="lazy" decoding="async" src="./images/assembly-round.webp" alt="" />
           <strong>2</strong>
         </span>
       </div>
       <h2 id="assembly-pad-title">연습 패드 결합</h2>
 
       <div class="assembly-pad__visual">
-        <img class="assembly-pad__main" src="./images/assembly-02-main.png" alt="스탠드에 결합된 연습 패드" />
+        <img loading="lazy" decoding="async" class="assembly-pad__main" src="./images/assembly-02-main.webp" alt="스탠드에 결합된 연습 패드" />
 
         <div class="assembly-pad__detail assembly-pad__detail--left">
-          <img src="./images/assembly-02-01.png" alt="패드 하단 고무팔 고정부" />
+          <img loading="lazy" decoding="async" src="./images/assembly-02-01.webp" alt="패드 하단 고무팔 고정부" />
         </div>
         <div class="assembly-pad__detail assembly-pad__detail--right">
-          <img src="./images/assembly-02-02.png" alt="패드 모서리 중앙 노브" />
+          <img loading="lazy" decoding="async" src="./images/assembly-02-02.webp" alt="패드 모서리 중앙 노브" />
         </div>
 
         <svg class="assembly-pad__connectors" viewBox="0 0 860 920" preserveAspectRatio="none" aria-hidden="true">
@@ -503,20 +508,20 @@
     <section class="assembly-finish" aria-labelledby="assembly-finish-title">
       <div class="assembly-step__rule assembly-finish__rule" aria-hidden="true">
         <span>
-          <img src="./images/assembly-round.png" alt="" />
+          <img loading="lazy" decoding="async" src="./images/assembly-round.webp" alt="" />
           <strong>3</strong>
         </span>
       </div>
       <h2 id="assembly-finish-title">마무리 확인</h2>
 
       <div class="assembly-finish__visual">
-        <img class="assembly-finish__main" src="./images/assembly-03-main.png" alt="조립이 완료된 루딕스 연습 패드" />
+        <img loading="lazy" decoding="async" class="assembly-finish__main" src="./images/assembly-03-main.webp" alt="조립이 완료된 루딕스 연습 패드" />
 
         <div class="assembly-finish__detail assembly-finish__detail--left">
-          <img src="./images/assembly-03-01.png" alt="각도 조절 나사" />
+          <img loading="lazy" decoding="async" src="./images/assembly-03-01.webp" alt="각도 조절 나사" />
         </div>
         <div class="assembly-finish__detail assembly-finish__detail--right">
-          <img src="./images/assembly-03-02.png" alt="높이 고정 노브" />
+          <img loading="lazy" decoding="async" src="./images/assembly-03-02.webp" alt="높이 고정 노브" />
         </div>
       </div>
 
@@ -532,12 +537,12 @@
         <div class="assembly-finish__angles">
           <article>
             <span class="assembly-finish__angle-icon">—</span>
-            <img src="./images/assembly-03-03.png" alt="수평 연습 각도" />
+            <img loading="lazy" decoding="async" src="./images/assembly-03-03.webp" alt="수평 연습 각도" />
             <p>수평연습</p>
           </article>
           <article>
             <span class="assembly-finish__angle-icon assembly-finish__angle-icon--slope">—</span>
-            <img src="./images/assembly-03-04.png" alt="경사 연습 각도" />
+            <img loading="lazy" decoding="async" src="./images/assembly-03-04.webp" alt="경사 연습 각도" />
             <p>경사연습</p>
           </article>
         </div>
@@ -549,7 +554,7 @@
     <section class="closing-story" aria-labelledby="closing-story-title">
       <header class="closing-story__header">
         <p>THE RUDIX STORY</p>
-        <img src="./images/title-divider.png" alt="" aria-hidden="true" />
+        <img loading="lazy" decoding="async" src="./images/title-divider.webp" alt="" aria-hidden="true" />
         <h2 id="closing-story-title">올바른 시작의 기준</h2>
       </header>
 
@@ -567,7 +572,7 @@
         </p>
       </div>
 
-      <img class="closing-story__logo" src="./images/logo-white.png" alt="Rudix" />
+      <img loading="lazy" decoding="async" class="closing-story__logo" src="./images/logo-white.webp" alt="Rudix" />
     </section>
 
   </main>
@@ -582,7 +587,7 @@
     </span>
   </button>
 
-  <script src="./script.js?v=8"></script>
+  <script src="./script.js?v=9"></script>
 
   <!-- 인트로 영상 소리 켜기 -->
   <script>

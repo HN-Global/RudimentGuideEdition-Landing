@@ -99,7 +99,7 @@ document.querySelectorAll("section").forEach((section) => {
   );
 
   sectionRevealElements.forEach((element, index) => {
-    element.style.setProperty("--reveal-delay", `${Math.min(index * 0.12, 0.6)}s`);
+    element.style.setProperty("--reveal-delay", `${Math.min(index * 0.06, 0.3)}s`);
   });
 });
 
@@ -131,8 +131,8 @@ if ("IntersectionObserver" in window) {
     },
     {
       root: null,
-      rootMargin: "0px 0px -12% 0px",
-      threshold: 0.18,
+      rootMargin: "0px 0px 20% 0px",
+      threshold: 0.01,
     },
   );
 
