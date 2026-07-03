@@ -8,8 +8,10 @@
   <title>Rudix 루디먼트 가이드 에디션 | 드럼은 손보다 먼저</title>
   <link rel="canonical" href="https://edition.rudix.biz/" />
 
-  <!-- LCP 최적화: 인트로 영상 포스터를 즉시·우선 로드 (영상 데이터는 preload=none으로 지연) -->
-  <link rel="preload" as="image" href="./videos/intro-poster.webp?v=2" fetchpriority="high" />
+  <!-- LCP 최적화: 히어로 제품 이미지(최상단 LCP 후보) 최우선 로드 -->
+  <link rel="preload" as="image" href="./images/hero.webp" fetchpriority="high" />
+  <!-- 인트로 영상 포스터(히어로 다음) 미리 로드 -->
+  <link rel="preload" as="image" href="./videos/intro-poster.webp?v=2" />
 
   <!-- Favicon (rudix.biz 동일 자산 자체호스팅) -->
   <link rel="shortcut icon" href="./favicon.ico" />
