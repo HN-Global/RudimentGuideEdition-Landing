@@ -40,14 +40,6 @@
 
 <body>
   <main class="landing-page">
-    <!-- 상단 인트로 영상 (자동재생 / 무한반복 / 무음) -->
-    <section class="intro-video" style="position: relative; width: 100%; line-height: 0;">
-      <video id="introVideo" autoplay muted loop playsinline preload="auto" poster="./videos/intro-poster.webp?v=2" width="1080" height="608" style="width: 100%; height: auto; display: block;">
-        <source src="./videos/intro.mp4?v=2" type="video/mp4" />
-      </video>
-      <button id="introUnmute" type="button" onclick="rdxUnmute()" aria-label="소리 켜기" style="position: absolute; top: 16px; right: 16px; z-index: 5; display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 30px; padding: 10px 18px; font-size: 15px; font-weight: 700; line-height: 1; cursor: pointer; font-family: inherit; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);">🔊 소리 켜기</button>
-    </section>
-
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero__content">
         <img class="hero__logo" src="./images/logo-white.webp" alt="Rudix" width="206" height="48" />
@@ -65,6 +57,14 @@
       </div>
 
       <p class="hero__footer">RUDIMENT GUIDE EDITION</p>
+    </section>
+
+    <!-- 인트로 영상 (히어로 다음 / 자동재생·무한반복·무음, 화면 근처에서만 로드) -->
+    <section class="intro-video" style="position: relative; width: 100%; line-height: 0;">
+      <video id="introVideo" autoplay muted loop playsinline preload="none" poster="./videos/intro-poster.webp?v=2" width="1080" height="608" style="width: 100%; height: auto; display: block;">
+        <source src="./videos/intro.mp4?v=2" type="video/mp4" />
+      </video>
+      <button id="introUnmute" type="button" onclick="rdxUnmute()" aria-label="소리 켜기" style="position: absolute; top: 16px; right: 16px; z-index: 5; display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 30px; padding: 10px 18px; font-size: 15px; font-weight: 700; line-height: 1; cursor: pointer; font-family: inherit; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);">🔊 소리 켜기</button>
     </section>
 
     <section class="brand-story" aria-labelledby="brand-story-title">
