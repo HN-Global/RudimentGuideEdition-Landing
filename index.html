@@ -575,7 +575,7 @@
 
   </main>
 
-  <button class="floating-buy" type="button" aria-label="루디먼트 가이드 에디션 88,000원 구매하기">
+  <button class="floating-buy" type="button" onclick="rdxBuy()" aria-label="루디먼트 가이드 에디션 88,000원 구매하기">
     <span class="floating-buy__info">
       <strong>루디먼트 가이드 에디션</strong>
       <em>88,000원</em>
@@ -611,6 +611,61 @@
       if (v) v.addEventListener('volumechange', rdxSyncSoundBtn);
       rdxSyncSoundBtn();
     })();
+  </script>
+
+  <!-- 구매하기 (SHL 버디케인 방식: same-origin /api/order 서버리스 -> 결제URL -> 이동. 유휴시 미리 주문 생성) -->
+  <script>
+    var rdxPrefetch = { status: 'idle', promise: null, paymentUrl: null };
+    var rdxClicked = false;
+
+    function rdxCreateOrder() {
+      if (rdxPrefetch.status === 'ready') return Promise.resolve(rdxPrefetch.paymentUrl);
+      if (rdxPrefetch.status === 'loading' && rdxPrefetch.promise) return rdxPrefetch.promise;
+      rdxPrefetch.status = 'loading';
+      rdxPrefetch.promise = fetch('/api/order', { method: 'POST' })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d && d.ok && d.paymentUrl) {
+            rdxPrefetch.status = 'ready';
+            rdxPrefetch.paymentUrl = d.paymentUrl;
+            return d.paymentUrl;
+          }
+          rdxPrefetch.status = 'failed';
+          throw new Error(d && d.reason ? d.reason : 'NO_PAYMENT_URL');
+        })
+        .catch(function (e) { rdxPrefetch.status = 'failed'; rdxPrefetch.promise = null; throw e; });
+      return rdxPrefetch.promise;
+    }
+
+    function rdxSchedulePrefetch() {
+      if (window.requestIdleCallback) {
+        requestIdleCallback(function () { rdxCreateOrder().catch(function () {}); }, { timeout: 4000 });
+      } else {
+        setTimeout(function () { rdxCreateOrder().catch(function () {}); }, 1500);
+      }
+    }
+    if (document.readyState === 'complete') rdxSchedulePrefetch();
+    else window.addEventListener('load', rdxSchedulePrefetch);
+
+    async function rdxBuy() {
+      if (rdxClicked) return;
+      rdxClicked = true;
+      var btn = document.querySelector('.floating-buy');
+      // (추적 ID 심은 후 여기서 GA/Meta 구매 전환 이벤트 발사)
+      if (rdxPrefetch.status === 'ready' && rdxPrefetch.paymentUrl) {
+        window.location.href = rdxPrefetch.paymentUrl;
+        return;
+      }
+      if (btn) { btn.style.opacity = '0.6'; btn.style.pointerEvents = 'none'; }
+      try {
+        var url = await rdxCreateOrder();
+        window.location.href = url;
+      } catch (err) {
+        alert('주문 처리 중 오류가 발생했습니다: ' + (err && err.message ? err.message : err));
+        rdxClicked = false;
+        if (btn) { btn.style.opacity = ''; btn.style.pointerEvents = ''; }
+      }
+    }
   </script>
 </body>
 
