@@ -647,6 +647,18 @@
     if (document.readyState === 'complete') rdxSchedulePrefetch();
     else window.addEventListener('load', rdxSchedulePrefetch);
 
+    // 뒤로가기(bfcache) 복원 시: 잠긴 버튼/상태 초기화 + 이미 써버린 주문 폐기하고 다시 prefetch
+    window.addEventListener('pageshow', function (e) {
+      if (!e.persisted) return;
+      rdxClicked = false;
+      rdxPrefetch = { status: 'idle', promise: null, paymentUrl: null };
+      var btn = document.querySelector('.floating-buy');
+      if (btn) { btn.style.opacity = ''; btn.style.pointerEvents = ''; }
+      var v = document.getElementById('introVideo');
+      if (v && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      rdxSchedulePrefetch();
+    });
+
     async function rdxBuy() {
       if (rdxClicked) return;
       rdxClicked = true;
