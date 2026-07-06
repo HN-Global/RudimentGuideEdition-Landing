@@ -712,13 +712,21 @@
       if (rdxClicked) return;
       rdxClicked = true;
       var btn = document.querySelector('.floating-buy');
-      // 구매 클릭 전환 이벤트 (GA4만. Meta InitiateCheckout은 자사몰 결제페이지에서
-      // imweb 네이티브가 발사하므로 여기선 중복 방지 위해 안 쏨)
+      // 구매 클릭 전환 이벤트
+      //  - GA4: click_buy_now
+      //  - Meta: ClickBuyNow (커스텀). InitiateCheckout(표준)은 자사몰 결제페이지에서
+      //    imweb 네이티브가 쏘므로, 여기선 중복 방지 위해 표준 대신 커스텀으로 분리
       try {
         if (typeof gtag === 'function') {
           gtag('event', 'click_buy_now', {
             currency: 'KRW', value: 88000,
             items: [{ item_id: '14', item_name: '루디먼트 가이드 에디션', price: 88000 }]
+          });
+        }
+        if (typeof fbq === 'function') {
+          fbq('trackCustom', 'ClickBuyNow', {
+            content_name: '루디먼트 가이드 에디션', content_ids: ['14'], content_type: 'product',
+            value: 88000, currency: 'KRW'
           });
         }
       } catch (e) {}
