@@ -816,9 +816,10 @@
     })();
   </script>
 
-  <!-- 구매하기 (same-origin /api/order 서버리스 -> 결제URL -> 이동. 주문은 "클릭 시에만" 생성) -->
-  <!-- ※ 예전엔 로드시 미리 주문 생성(prefetch)했으나, 방문자마다 유령 주문 + imweb 전환API가
-  <!--   InitiateCheckout을 과발사하는 부작용이 있어 제거함. 이제 실제 클릭 때만 주문 생성. -->
+  <!-- 구매하기: same-origin /api/order 서버리스 -> 결제URL -> 이동.
+       주문은 "첫 스크롤/터치(관심 신호)" 시 1회 미리 생성(prefetch) -> 결제 클릭 시 즉시 이동.
+       (로드 즉시 prefetch는 방문자마다 유령주문 + imweb 전환API의 InitiateCheckout 폭증을
+        유발하므로, 즉시 이탈자를 걸러내는 "첫 관심 신호" 시점으로 늦춤) -->
   <script>
     var rdxOrder = { status: 'idle', promise: null, paymentUrl: null };
     var rdxClicked = false;
@@ -842,7 +843,22 @@
       return rdxOrder.promise;
     }
 
-    // 뒤로가기(bfcache) 복원 시: 잠긴 버튼/상태 초기화 + 영상 재생 재개 (미리 주문 생성 안 함)
+    // 첫 관심(스크롤/터치/포인터/키) 신호 시 1회만 주문 미리 생성 -> 결제 클릭을 즉시화.
+    // 즉시 이탈자(무반응)는 주문이 안 생겨 유령주문/결제시작 폭증을 최소화한다.
+    var rdxArmed = false;
+    function rdxArmPrefetch() {
+      if (rdxArmed) return;
+      rdxArmed = true;
+      var events = ['scroll', 'touchstart', 'pointerdown', 'mousemove', 'keydown'];
+      function fire() {
+        events.forEach(function (ev) { window.removeEventListener(ev, fire); });
+        rdxCreateOrder().catch(function () {});
+      }
+      events.forEach(function (ev) { window.addEventListener(ev, fire, { passive: true }); });
+    }
+    rdxArmPrefetch();
+
+    // 뒤로가기(bfcache) 복원 시: 잠긴 버튼/상태 초기화 + 영상 재생 재개 + 새 주문 다시 준비
     window.addEventListener('pageshow', function (e) {
       // 로딩 오버레이가 켜진 채 복원되면 멈춘 것처럼 보임 -> pageshow 시 무조건 끔
       var loading = document.getElementById('rdxLoading');
@@ -851,7 +867,10 @@
       if (btn) { btn.style.opacity = ''; btn.style.pointerEvents = ''; }
       rdxClicked = false;
       if (!e.persisted) return;
+      // 복원 시 이전 주문은 이미 써버렸을 수 있음 -> 폐기하고 다음 관심 신호에 새로 준비
       rdxOrder = { status: 'idle', promise: null, paymentUrl: null };
+      rdxArmed = false;
+      rdxArmPrefetch();
       var v = document.getElementById('introVideo');
       if (v && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
     });
