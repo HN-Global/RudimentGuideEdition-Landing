@@ -115,10 +115,11 @@
       .video-pick__preview { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
       .video-pick__card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0) 48%); pointer-events: none; }
       /* 펄스 재생버튼 */
-      .video-pick__play { position: absolute; top: 46%; left: 50%; transform: translate(-50%,-50%); width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.96); z-index: 3; transition: background .2s ease; }
-      .video-pick__play::before { content: ""; position: absolute; top: 50%; left: 56%; transform: translate(-50%,-50%); border-style: solid; border-width: 13px 0 13px 22px; border-color: transparent transparent transparent #111; }
-      .video-pick__play::after { content: ""; position: absolute; inset: -9px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.7); animation: vpPulse 2s ease-out infinite; }
-      @keyframes vpPulse { 0% { transform: scale(1); opacity: .75; } 100% { transform: scale(1.55); opacity: 0; } }
+      .video-pick__play { position: absolute; top: 46%; left: 50%; transform: translate(-50%,-50%); width: 74px; height: 74px; border-radius: 50%; background: #fff; z-index: 3; transition: background .2s ease; animation: vpGlow 1.6s ease-out infinite; }
+      .video-pick__play::before { content: ""; position: absolute; top: 50%; left: 56%; transform: translate(-50%,-50%); border-style: solid; border-width: 13px 0 13px 22px; border-color: transparent transparent transparent #e63d16; z-index: 1; }
+      .video-pick__play::after { content: ""; position: absolute; inset: -11px; border-radius: 50%; border: 3px solid #ff5a2c; animation: vpPulse 1.5s ease-out infinite; }
+      @keyframes vpPulse { 0% { transform: scale(1); opacity: .95; } 100% { transform: scale(2); opacity: 0; } }
+      @keyframes vpGlow { 0% { box-shadow: 0 0 0 0 rgba(255,90,44,0.65); } 70% { box-shadow: 0 0 0 26px rgba(255,90,44,0); } 100% { box-shadow: 0 0 0 0 rgba(255,90,44,0); } }
       .video-pick__card:hover .video-pick__play { background: #ff5a2c; }
       .video-pick__card:hover .video-pick__play::before { border-left-color: #fff; }
       /* 길이 배지 */
@@ -722,19 +723,29 @@
     #rdxLoading {
       position: fixed; inset: 0; z-index: 99999;
       display: none; align-items: center; justify-content: center;
-      background: rgba(0, 0, 0, 0.4); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+      background: rgba(10, 10, 10, 0.82); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
     }
     #rdxLoading.is-active { display: flex; }
+    #rdxLoading .rdx-loading-box { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 32px; max-width: 460px; }
     #rdxLoading .rdx-spinner {
-      width: 54px; height: 54px;
-      border: 4px solid rgba(255, 255, 255, 0.3);
-      border-top-color: #fff;
+      width: 60px; height: 60px;
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      border-top-color: #ff5a2c;
       border-radius: 50%;
       animation: rdx-spin 0.8s linear infinite;
     }
+    #rdxLoading .rdx-loading-title { margin: 28px 0 0; color: #fff; font-size: 27px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.4; }
+    #rdxLoading .rdx-loading-title b { color: #ff7a3c; }
+    #rdxLoading .rdx-loading-sub { margin: 14px 0 0; color: rgba(255, 255, 255, 0.72); font-size: 16px; font-weight: 500; line-height: 1.55; }
     @keyframes rdx-spin { to { transform: rotate(360deg); } }
   </style>
-  <div id="rdxLoading" aria-hidden="true"><div class="rdx-spinner"></div></div>
+  <div id="rdxLoading" aria-hidden="true">
+    <div class="rdx-loading-box">
+      <div class="rdx-spinner"></div>
+      <p class="rdx-loading-title">결제 페이지로<br><b>이동하고 있어요</b></p>
+      <p class="rdx-loading-sub">몇 초면 완료돼요.<br>창을 닫지 말고 잠시만 기다려주세요!</p>
+    </div>
+  </div>
 
   <!-- 전체화면 영상 재생 모달 -->
   <style>
