@@ -33,7 +33,7 @@
   <meta name="twitter:description" content="드럼 입문자를 위한 최고의 가치. 올바른 시작의 기준을 만나보세요." />
   <meta name="twitter:image" content="https://edition.rudix.biz/images/og-image.png" />
 
-  <link rel="stylesheet" href="./style.css?v=20260706-1" />
+  <link rel="stylesheet" href="./style.css?v=20260706-2" />
 
   <!-- ===== 추적: GA4 + Meta 픽셀 (루딕스 자사몰 속성 공유) ===== -->
   <!-- Google Analytics 4 -->
@@ -668,15 +668,22 @@
 
   </main>
 
-  <button class="floating-buy" type="button" onclick="rdxBuy()" aria-label="루디먼트 가이드 에디션 88,000원 구매하기">
+  <div class="floating-buy">
     <span class="floating-buy__info">
       <strong>루디먼트 가이드 에디션</strong>
       <em>88,000원</em>
     </span>
-    <span class="floating-buy__cta">
+    <button class="floating-buy__cta" type="button" onclick="rdxBuy()" aria-label="루디먼트 가이드 에디션 88,000원 구매하기">
       <span class="floating-buy__cta-text">구매하기</span>
-    </span>
-  </button>
+    </button>
+    <a class="floating-buy__yt"
+       href="https://www.youtube.com/watch?v=dw1jmu25gZE&list=PLeU59KLfNtk7m35KI8yMHA5ShFCXv9jFo&index=2"
+       target="_blank" rel="noopener noreferrer" aria-label="강의 맛보기 영상 (유튜브 새 탭)"
+       onclick="try{ if(typeof gtag==='function') gtag('event','click_lecture_preview'); }catch(e){}">
+      <svg class="floating-buy__yt-icon" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="5" fill="#FF0000"></rect><path d="M11.2 6 18 10l-6.8 4z" fill="#fff"></path></svg>
+      <span class="floating-buy__yt-text">강의 맛보기</span>
+    </a>
+  </div>
 
   <script src="./script.js?v=9"></script>
 
