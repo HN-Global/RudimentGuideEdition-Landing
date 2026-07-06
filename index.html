@@ -840,11 +840,14 @@
 
     // 뒤로가기(bfcache) 복원 시: 잠긴 버튼/상태 초기화 + 영상 재생 재개 (미리 주문 생성 안 함)
     window.addEventListener('pageshow', function (e) {
-      if (!e.persisted) return;
-      rdxClicked = false;
-      rdxOrder = { status: 'idle', promise: null, paymentUrl: null };
+      // 로딩 오버레이가 켜진 채 복원되면 멈춘 것처럼 보임 -> pageshow 시 무조건 끔
+      var loading = document.getElementById('rdxLoading');
+      if (loading) loading.classList.remove('is-active');
       var btn = document.querySelector('.floating-buy');
       if (btn) { btn.style.opacity = ''; btn.style.pointerEvents = ''; }
+      rdxClicked = false;
+      if (!e.persisted) return;
+      rdxOrder = { status: 'idle', promise: null, paymentUrl: null };
       var v = document.getElementById('introVideo');
       if (v && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
     });
