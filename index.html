@@ -763,8 +763,9 @@
       }
       document.querySelectorAll('.video-pick__card').forEach(function (card) {
         card.addEventListener('click', function () {
-          var img = card.querySelector('img');
-          openVideo(card.getAttribute('data-video'), card.getAttribute('data-title'), img ? img.getAttribute('src') : '');
+          var prev = card.querySelector('.video-pick__preview');
+          var poster = prev ? prev.getAttribute('poster') : '';
+          openVideo(card.getAttribute('data-video'), card.getAttribute('data-title'), poster);
         });
       });
       closeBtn.addEventListener('click', closeVideo);
