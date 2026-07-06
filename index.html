@@ -102,6 +102,41 @@
       <p class="hero__footer">RUDIMENT GUIDE EDITION</p>
     </section>
 
+    <!-- 영상 선택 재생 -->
+    <style>
+      .video-pick { padding: 76px 40px 84px; text-align: center; background: #0f0f0f; }
+      .video-pick__eyebrow { font-size: 14px; letter-spacing: 0.22em; color: #ff5a2c; font-weight: 700; margin: 0 0 14px; }
+      .video-pick__title { font-size: 34px; font-weight: 800; color: #fff; margin: 0 0 10px; line-height: 1.3; }
+      .video-pick__sub { font-size: 16px; color: rgba(255,255,255,0.58); margin: 0 0 44px; }
+      .video-pick__grid { display: flex; gap: 26px; justify-content: center; }
+      .video-pick__card { position: relative; width: 300px; aspect-ratio: 9 / 16; border: 0; padding: 0; border-radius: 20px; overflow: hidden; cursor: pointer; background: #000; box-shadow: 0 12px 44px rgba(0,0,0,0.45); transition: transform .25s ease, box-shadow .25s ease; }
+      .video-pick__card:hover { transform: translateY(-7px); box-shadow: 0 20px 56px rgba(0,0,0,0.6); }
+      .video-pick__card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .video-pick__card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0) 46%); }
+      .video-pick__play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 68px; height: 68px; border-radius: 50%; background: rgba(255,255,255,0.92); z-index: 2; transition: transform .2s ease, background .2s ease; }
+      .video-pick__play::before { content: ""; position: absolute; top: 50%; left: 55%; transform: translate(-50%,-50%); border-style: solid; border-width: 13px 0 13px 21px; border-color: transparent transparent transparent #111; }
+      .video-pick__card:hover .video-pick__play { transform: translate(-50%,-50%) scale(1.08); background: #fff; }
+      .video-pick__label { position: absolute; left: 16px; right: 16px; bottom: 20px; z-index: 2; color: #fff; font-size: 19px; font-weight: 700; }
+      .video-pick__label small { display: block; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); margin-top: 5px; }
+    </style>
+    <section class="video-pick" aria-label="제품 영상">
+      <p class="video-pick__eyebrow">VIDEO</p>
+      <h2 class="video-pick__title">영상으로 만나보세요</h2>
+      <p class="video-pick__sub">보고 싶은 영상을 눌러 전체화면으로 재생하세요</p>
+      <div class="video-pick__grid">
+        <button class="video-pick__card" type="button" data-video="./videos/product-intro.mp4" data-title="제품 소개" aria-label="제품 소개 영상 재생">
+          <img src="./images/product-intro-poster.webp" alt="제품 소개 영상 미리보기" loading="lazy" decoding="async" width="540" height="960" />
+          <span class="video-pick__play" aria-hidden="true"></span>
+          <span class="video-pick__label">제품 소개<small>루디먼트 가이드 에디션 언박싱</small></span>
+        </button>
+        <button class="video-pick__card" type="button" data-video="./videos/days-30.mp4" data-title="1일차 → 30일차" aria-label="1일차부터 30일차까지 영상 재생">
+          <img src="./images/days-30-poster.webp" alt="1일차부터 30일차까지 영상 미리보기" loading="lazy" decoding="async" width="540" height="960" />
+          <span class="video-pick__play" aria-hidden="true"></span>
+          <span class="video-pick__label">1일차 → 30일차<small>30일 연습의 변화</small></span>
+        </button>
+      </div>
+    </section>
+
     <section class="brand-story" aria-labelledby="brand-story-title">
       <div class="brand-story__content">
         <h2 id="brand-story-title">왜 루딕스인가요?</h2>
@@ -680,6 +715,50 @@
     @keyframes rdx-spin { to { transform: rotate(360deg); } }
   </style>
   <div id="rdxLoading" aria-hidden="true"><div class="rdx-spinner"></div></div>
+
+  <!-- 전체화면 영상 재생 모달 -->
+  <style>
+    .video-modal { position: fixed; inset: 0; z-index: 100000; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.93); }
+    .video-modal.is-open { display: flex; }
+    .video-modal__video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+    .video-modal__close { position: absolute; top: 16px; right: 18px; z-index: 2; width: 48px; height: 48px; border-radius: 50%; border: 0; background: rgba(255,255,255,0.16); color: #fff; font-size: 30px; line-height: 44px; text-align: center; cursor: pointer; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+    .video-modal__close:hover { background: rgba(255,255,255,0.32); }
+  </style>
+  <div id="rdxVideoModal" class="video-modal" aria-hidden="true">
+    <button class="video-modal__close" type="button" aria-label="영상 닫기">&times;</button>
+    <video class="video-modal__video" playsinline controls preload="none"></video>
+  </div>
+  <script>
+    (function () {
+      var modal = document.getElementById('rdxVideoModal');
+      if (!modal) return;
+      var video = modal.querySelector('.video-modal__video');
+      var closeBtn = modal.querySelector('.video-modal__close');
+      function openVideo(src, title) {
+        video.src = src;
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        var p = video.play(); if (p && p.catch) p.catch(function () {});
+        try { if (typeof gtag === 'function') gtag('event', 'video_play', { video_title: title || src }); } catch (e) {}
+      }
+      function closeVideo() {
+        modal.classList.remove('is-open');
+        try { video.pause(); } catch (e) {}
+        video.removeAttribute('src'); video.load();
+        document.body.style.overflow = '';
+      }
+      document.querySelectorAll('.video-pick__card').forEach(function (card) {
+        card.addEventListener('click', function () {
+          openVideo(card.getAttribute('data-video'), card.getAttribute('data-title'));
+        });
+      });
+      closeBtn.addEventListener('click', closeVideo);
+      modal.addEventListener('click', function (e) { if (e.target === modal) closeVideo(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) closeVideo();
+      });
+    })();
+  </script>
 
   <!-- 구매하기 (same-origin /api/order 서버리스 -> 결제URL -> 이동. 주문은 "클릭 시에만" 생성) -->
   <!-- ※ 예전엔 로드시 미리 주문 생성(prefetch)했으나, 방문자마다 유령 주문 + imweb 전환API가
