@@ -472,6 +472,37 @@ body {
   object-fit: cover;
 }
 
+/* 뉴스 아이템: 실제 기사 링크 */
+.news__item {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.news__readmore {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 18px;
+  color: #e9562e;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.news__readmore i {
+  font-style: normal;
+  transition: transform 0.2s ease;
+}
+
+.news__item:hover .news__readmore {
+  text-decoration: underline;
+}
+
+.news__item:hover .news__readmore i {
+  transform: translate(2px, -2px);
+}
+
 .package {
   position: relative;
   width: 860px;
