@@ -33,7 +33,7 @@
   <meta name="twitter:description" content="드럼 입문자를 위한 최고의 가치. 올바른 시작의 기준을 만나보세요." />
   <meta name="twitter:image" content="https://edition.rudix.biz/images/og-image.png" />
 
-  <link rel="stylesheet" href="./style.css?v=20260703-5" />
+  <link rel="stylesheet" href="./style.css?v=20260706-1" />
 
   <!-- ===== 추적: GA4 + Meta 픽셀 (루딕스 자사몰 속성 공유) ===== -->
   <!-- Google Analytics 4 -->
@@ -163,7 +163,7 @@
       <video id="introVideo" autoplay muted loop playsinline preload="none" poster="./videos/intro-poster.webp?v=2" width="1080" height="608" style="width: 100%; height: auto; display: block;">
         <source src="./videos/intro.mp4?v=2" type="video/mp4" />
       </video>
-      <button id="introUnmute" type="button" onclick="rdxToggleSound()" aria-label="소리 켜기" style="position: absolute; top: 16px; right: 16px; z-index: 5; display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 30px; padding: 10px 18px; font-size: 15px; font-weight: 700; line-height: 1; cursor: pointer; font-family: inherit; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);">🔊 소리 켜기</button>
+      <button id="introUnmute" type="button" onclick="rdxToggleSound()" aria-label="소리 켜기" style="position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 5; display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 30px; padding: 10px 18px; font-size: 15px; font-weight: 700; line-height: 1; cursor: pointer; font-family: inherit; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);">🔊 소리 켜기</button>
     </section>
 
     <section class="news" aria-labelledby="news-title">
@@ -734,7 +734,8 @@
       if (!modal) return;
       var video = modal.querySelector('.video-modal__video');
       var closeBtn = modal.querySelector('.video-modal__close');
-      function openVideo(src, title) {
+      function openVideo(src, title, poster) {
+        if (poster) video.setAttribute('poster', poster); else video.removeAttribute('poster');
         video.src = src;
         modal.classList.add('is-open');
         document.body.style.overflow = 'hidden';
@@ -744,12 +745,13 @@
       function closeVideo() {
         modal.classList.remove('is-open');
         try { video.pause(); } catch (e) {}
-        video.removeAttribute('src'); video.load();
+        video.removeAttribute('src'); video.removeAttribute('poster'); video.load();
         document.body.style.overflow = '';
       }
       document.querySelectorAll('.video-pick__card').forEach(function (card) {
         card.addEventListener('click', function () {
-          openVideo(card.getAttribute('data-video'), card.getAttribute('data-title'));
+          var img = card.querySelector('img');
+          openVideo(card.getAttribute('data-video'), card.getAttribute('data-title'), img ? img.getAttribute('src') : '');
         });
       });
       closeBtn.addEventListener('click', closeVideo);

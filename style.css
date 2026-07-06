@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Paperlogy";
-  src: url("./fonts/Paperlogy-7Bold.subset.woff2") format("woff2");
+  src: url("./fonts/Paperlogy-7Bold.subset.woff2?v=2") format("woff2");
   font-style: normal;
   font-weight: 700;
   font-display: swap;
@@ -9,32 +9,32 @@
 /* Noto Sans KR: 자체호스팅 서브셋 (페이지 글자만, 4개 무게) — Google Fonts 외부의존 제거 */
 @font-face {
   font-family: "Noto Sans KR";
-  src: url("./fonts/NotoSansKR-300.subset.woff2") format("woff2");
+  src: url("./fonts/NotoSansKR-300.subset.woff2?v=2") format("woff2");
   font-weight: 300;
   font-display: swap;
 }
 @font-face {
   font-family: "Noto Sans KR";
-  src: url("./fonts/NotoSansKR-400.subset.woff2") format("woff2");
+  src: url("./fonts/NotoSansKR-400.subset.woff2?v=2") format("woff2");
   font-weight: 400;
   font-display: swap;
 }
 @font-face {
   font-family: "Noto Sans KR";
-  src: url("./fonts/NotoSansKR-500.subset.woff2") format("woff2");
+  src: url("./fonts/NotoSansKR-500.subset.woff2?v=2") format("woff2");
   font-weight: 500;
   font-display: swap;
 }
 @font-face {
   font-family: "Noto Sans KR";
-  src: url("./fonts/NotoSansKR-700.subset.woff2") format("woff2");
+  src: url("./fonts/NotoSansKR-700.subset.woff2?v=2") format("woff2");
   font-weight: 700;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Pretendard";
-  src: url("./fonts/Pretendard-Bold.subset.woff2") format("woff2");
+  src: url("./fonts/Pretendard-Bold.subset.woff2?v=2") format("woff2");
   font-weight: 700;
   font-display: swap;
 }
@@ -667,7 +667,7 @@ body {
   top: 60px;
   left: 48.5%;
   color: #e9562e;
-  font-family: "Pretendard";
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
   font-size: 64px;
   font-weight: 700;
   letter-spacing: -0.055em;
@@ -2136,7 +2136,7 @@ fullset-feature__item-pad {
   margin-top: 10px;
   color: #fff;
   font-size: 30px;
-  font-family: "Pretendard";
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 700;
   line-height: 1;
@@ -2168,7 +2168,7 @@ fullset-feature__item-pad {
 .floating-buy__cta-text {
   color: #fff;
   font-size: 27px;
-  font-family: "Pretendard";
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.045em;
