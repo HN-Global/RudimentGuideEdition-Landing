@@ -662,50 +662,41 @@
   <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=2077008873090736&ev=PageView&noscript=1" /></noscript>
 
-  <!-- 구매하기 (SHL 버디케인 방식: same-origin /api/order 서버리스 -> 결제URL -> 이동. 유휴시 미리 주문 생성) -->
+  <!-- 구매하기 (same-origin /api/order 서버리스 -> 결제URL -> 이동. 주문은 "클릭 시에만" 생성) -->
+  <!-- ※ 예전엔 로드시 미리 주문 생성(prefetch)했으나, 방문자마다 유령 주문 + imweb 전환API가
+  <!--   InitiateCheckout을 과발사하는 부작용이 있어 제거함. 이제 실제 클릭 때만 주문 생성. -->
   <script>
-    var rdxPrefetch = { status: 'idle', promise: null, paymentUrl: null };
+    var rdxOrder = { status: 'idle', promise: null, paymentUrl: null };
     var rdxClicked = false;
 
     function rdxCreateOrder() {
-      if (rdxPrefetch.status === 'ready') return Promise.resolve(rdxPrefetch.paymentUrl);
-      if (rdxPrefetch.status === 'loading' && rdxPrefetch.promise) return rdxPrefetch.promise;
-      rdxPrefetch.status = 'loading';
-      rdxPrefetch.promise = fetch('/api/order', { method: 'POST' })
+      if (rdxOrder.status === 'ready') return Promise.resolve(rdxOrder.paymentUrl);
+      if (rdxOrder.status === 'loading' && rdxOrder.promise) return rdxOrder.promise;
+      rdxOrder.status = 'loading';
+      rdxOrder.promise = fetch('/api/order', { method: 'POST' })
         .then(function (r) { return r.json(); })
         .then(function (d) {
           if (d && d.ok && d.paymentUrl) {
-            rdxPrefetch.status = 'ready';
-            rdxPrefetch.paymentUrl = d.paymentUrl;
+            rdxOrder.status = 'ready';
+            rdxOrder.paymentUrl = d.paymentUrl;
             return d.paymentUrl;
           }
-          rdxPrefetch.status = 'failed';
+          rdxOrder.status = 'failed';
           throw new Error(d && d.reason ? d.reason : 'NO_PAYMENT_URL');
         })
-        .catch(function (e) { rdxPrefetch.status = 'failed'; rdxPrefetch.promise = null; throw e; });
-      return rdxPrefetch.promise;
+        .catch(function (e) { rdxOrder.status = 'failed'; rdxOrder.promise = null; throw e; });
+      return rdxOrder.promise;
     }
 
-    function rdxSchedulePrefetch() {
-      if (window.requestIdleCallback) {
-        requestIdleCallback(function () { rdxCreateOrder().catch(function () {}); }, { timeout: 4000 });
-      } else {
-        setTimeout(function () { rdxCreateOrder().catch(function () {}); }, 1500);
-      }
-    }
-    if (document.readyState === 'complete') rdxSchedulePrefetch();
-    else window.addEventListener('load', rdxSchedulePrefetch);
-
-    // 뒤로가기(bfcache) 복원 시: 잠긴 버튼/상태 초기화 + 이미 써버린 주문 폐기하고 다시 prefetch
+    // 뒤로가기(bfcache) 복원 시: 잠긴 버튼/상태 초기화 + 영상 재생 재개 (미리 주문 생성 안 함)
     window.addEventListener('pageshow', function (e) {
       if (!e.persisted) return;
       rdxClicked = false;
-      rdxPrefetch = { status: 'idle', promise: null, paymentUrl: null };
+      rdxOrder = { status: 'idle', promise: null, paymentUrl: null };
       var btn = document.querySelector('.floating-buy');
       if (btn) { btn.style.opacity = ''; btn.style.pointerEvents = ''; }
       var v = document.getElementById('introVideo');
       if (v && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-      rdxSchedulePrefetch();
     });
 
     async function rdxBuy() {
@@ -730,10 +721,11 @@
           });
         }
       } catch (e) {}
-      if (rdxPrefetch.status === 'ready' && rdxPrefetch.paymentUrl) {
-        window.location.href = rdxPrefetch.paymentUrl;
+      if (rdxOrder.status === 'ready' && rdxOrder.paymentUrl) {
+        window.location.href = rdxOrder.paymentUrl;
         return;
       }
+      // 클릭 시에만 주문 생성 -> 결제페이지로 이동 (생성까지 ~0.5~1초 버튼 대기표시)
       if (btn) { btn.style.opacity = '0.6'; btn.style.pointerEvents = 'none'; }
       try {
         var url = await rdxCreateOrder();
