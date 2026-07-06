@@ -662,6 +662,25 @@
   <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=2077008873090736&ev=PageView&noscript=1" /></noscript>
 
+  <!-- 구매 처리중 로딩 오버레이 -->
+  <style>
+    #rdxLoading {
+      position: fixed; inset: 0; z-index: 99999;
+      display: none; align-items: center; justify-content: center;
+      background: rgba(0, 0, 0, 0.4); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+    }
+    #rdxLoading.is-active { display: flex; }
+    #rdxLoading .rdx-spinner {
+      width: 54px; height: 54px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: rdx-spin 0.8s linear infinite;
+    }
+    @keyframes rdx-spin { to { transform: rotate(360deg); } }
+  </style>
+  <div id="rdxLoading" aria-hidden="true"><div class="rdx-spinner"></div></div>
+
   <!-- 구매하기 (same-origin /api/order 서버리스 -> 결제URL -> 이동. 주문은 "클릭 시에만" 생성) -->
   <!-- ※ 예전엔 로드시 미리 주문 생성(prefetch)했으나, 방문자마다 유령 주문 + imweb 전환API가
   <!--   InitiateCheckout을 과발사하는 부작용이 있어 제거함. 이제 실제 클릭 때만 주문 생성. -->
@@ -721,16 +740,20 @@
           });
         }
       } catch (e) {}
+      var loading = document.getElementById('rdxLoading');
       if (rdxOrder.status === 'ready' && rdxOrder.paymentUrl) {
+        if (loading) loading.classList.add('is-active');
         window.location.href = rdxOrder.paymentUrl;
         return;
       }
-      // 클릭 시에만 주문 생성 -> 결제페이지로 이동 (생성까지 ~0.5~1초 버튼 대기표시)
+      // 클릭 시에만 주문 생성 -> 결제페이지로 이동 (생성 동안 로딩 스피너 표시)
+      if (loading) loading.classList.add('is-active');
       if (btn) { btn.style.opacity = '0.6'; btn.style.pointerEvents = 'none'; }
       try {
         var url = await rdxCreateOrder();
         window.location.href = url;
       } catch (err) {
+        if (loading) loading.classList.remove('is-active');
         alert('주문 처리 중 오류가 발생했습니다: ' + (err && err.message ? err.message : err));
         rdxClicked = false;
         if (btn) { btn.style.opacity = ''; btn.style.pointerEvents = ''; }
