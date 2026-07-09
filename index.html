@@ -681,36 +681,12 @@
     <button class="floating-buy__cta" type="button" onclick="rdxBuy()" aria-label="루디먼트 가이드 에디션 88,000원 구매하기">
       <span class="floating-buy__cta-text">구매하기</span>
     </button>
+    <a class="floating-buy__reviews" href="./reviews.html" aria-label="실사용자 리뷰 28개 보기"
+       onclick="try{ if(typeof gtag==='function') gtag('event','click_reviews'); }catch(e){}">
+      <span class="fb-rv-stars" aria-hidden="true">★★★★★</span>
+      <span class="fb-rv-text">리뷰 28개<small>전부 5점</small></span>
+    </a>
   </div>
-
-  <!-- 리뷰 보기 플로팅 버튼 (구매 바 위, 오른쪽) -->
-  <style>
-    .rdx-reviews-fab { position: fixed; right: 20px; bottom: 166px; z-index: 51;
-      display: inline-flex; align-items: center; gap: 9px; padding: 11px 17px; border-radius: 999px;
-      background: rgba(20,20,20,0.94); color: #fff; text-decoration: none;
-      box-shadow: inset 0 0 0 1.5px rgba(255,180,0,0.55), 0 6px 22px rgba(0,0,0,0.45);
-      -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
-      animation: rdxRvPulse 2.6s ease-in-out infinite; }
-    .rdx-reviews-fab:hover { background: rgba(32,32,32,0.96); }
-    .rdx-reviews-fab .rv-stars { color: #ffb400; font-size: 15px; letter-spacing: 1px; flex: none; }
-    .rdx-reviews-fab .rv-text { font-family: "Noto Sans KR", sans-serif; font-size: 14px; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
-    .rdx-reviews-fab .rv-text small { display: block; font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.62); margin-top: 2px; letter-spacing: 0; }
-    @keyframes rdxRvPulse {
-      0%,100% { box-shadow: inset 0 0 0 1.5px rgba(255,180,0,0.55), 0 6px 22px rgba(0,0,0,0.45), 0 0 0 0 rgba(255,180,0,0.45); }
-      50% { box-shadow: inset 0 0 0 1.5px rgba(255,180,0,0.9), 0 6px 22px rgba(0,0,0,0.45), 0 0 0 7px rgba(255,180,0,0); }
-    }
-    @media (max-width: 859px) {
-      .rdx-reviews-fab { right: 12px; bottom: clamp(112px, 22vw, 128px); padding: 9px 14px; gap: 7px; }
-      .rdx-reviews-fab .rv-stars { font-size: 13px; }
-      .rdx-reviews-fab .rv-text { font-size: 13px; }
-      .rdx-reviews-fab .rv-text small { font-size: 10px; }
-    }
-  </style>
-  <a class="rdx-reviews-fab" href="./reviews.html" aria-label="실사용자 리뷰 28개 보기"
-     onclick="try{ if(typeof gtag==='function') gtag('event','click_reviews'); }catch(e){}">
-    <span class="rv-stars" aria-hidden="true">★★★★★</span>
-    <span class="rv-text">리뷰 28개<small>전부 5점 · 실사용 후기</small></span>
-  </a>
 
   <script src="./script.js?v=9"></script>
 
