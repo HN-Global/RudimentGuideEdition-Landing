@@ -33,7 +33,7 @@
   <meta name="twitter:description" content="드럼 입문자를 위한 최고의 가치. 올바른 시작의 기준을 만나보세요." />
   <meta name="twitter:image" content="https://edition.rudix.biz/images/og-image.png" />
 
-  <link rel="stylesheet" href="./style.css?v=20260706-5" />
+  <link rel="stylesheet" href="./style.css?v=20260706-6" />
 
   <!-- ===== 추적: GA4 + Meta 픽셀 (루딕스 자사몰 속성 공유) ===== -->
   <!-- Google Analytics 4 -->
@@ -681,6 +681,13 @@
     <button class="floating-buy__cta" type="button" onclick="rdxBuy()" aria-label="루디먼트 가이드 에디션 88,000원 구매하기">
       <span class="floating-buy__cta-text">구매하기</span>
     </button>
+    <a class="floating-buy__rocket"
+       href="https://www.coupang.com/vp/products/9553915159?vendorItemId=95107901197"
+       target="_blank" rel="noopener noreferrer" aria-label="쿠팡 로켓배송으로 주문하기 (새 탭)"
+       onclick="try{ if(typeof gtag==='function') gtag('event','clickRoketBuy'); }catch(e){}">
+      <span class="floating-buy__rocket-icon" aria-hidden="true">🚀</span>
+      <span class="floating-buy__rocket-text">로켓배송</span>
+    </a>
   </div>
 
   <script src="./script.js?v=9"></script>
@@ -809,10 +816,9 @@
     })();
   </script>
 
-  <!-- 구매하기: same-origin /api/order 서버리스 -> 결제URL -> 이동.
-       주문은 "첫 스크롤/터치(관심 신호)" 시 1회 미리 생성(prefetch) -> 결제 클릭 시 즉시 이동.
-       (로드 즉시 prefetch는 방문자마다 유령주문 + imweb 전환API의 InitiateCheckout 폭증을
-        유발하므로, 즉시 이탈자를 걸러내는 "첫 관심 신호" 시점으로 늦춤) -->
+  <!-- 구매하기: 클릭하면 그때 /api/order 서버리스로 주문 생성 -> 결제URL -> 이동.
+       (미리 생성=prefetch은 imweb 전환API가 그 시점에 InitiateCheckout을 발사해 Meta 데이터를
+        오염시켜서 사용하지 않음. 생성되는 ~몇 초 동안 로딩 오버레이로 "기다려주세요" 안내) -->
   <script>
     var rdxOrder = { status: 'idle', promise: null, paymentUrl: null };
     var rdxClicked = false;
@@ -836,22 +842,9 @@
       return rdxOrder.promise;
     }
 
-    // 첫 관심(스크롤/터치/포인터/키) 신호 시 1회만 주문 미리 생성 -> 결제 클릭을 즉시화.
-    // 즉시 이탈자(무반응)는 주문이 안 생겨 유령주문/결제시작 폭증을 최소화한다.
-    var rdxArmed = false;
-    function rdxArmPrefetch() {
-      if (rdxArmed) return;
-      rdxArmed = true;
-      var events = ['scroll', 'touchstart', 'pointerdown', 'mousemove', 'keydown'];
-      function fire() {
-        events.forEach(function (ev) { window.removeEventListener(ev, fire); });
-        rdxCreateOrder().catch(function () {});
-      }
-      events.forEach(function (ev) { window.addEventListener(ev, fire, { passive: true }); });
-    }
-    rdxArmPrefetch();
+    // 주문은 "구매하기 클릭 시에만" 생성한다 (prefetch 안 함 -> Meta 오염 방지).
 
-    // 뒤로가기(bfcache) 복원 시: 잠긴 버튼/상태 초기화 + 영상 재생 재개 + 새 주문 다시 준비
+    // 뒤로가기(bfcache) 복원 시: 잠긴 버튼/상태 초기화 + 영상 재생 재개
     window.addEventListener('pageshow', function (e) {
       // 로딩 오버레이가 켜진 채 복원되면 멈춘 것처럼 보임 -> pageshow 시 무조건 끔
       var loading = document.getElementById('rdxLoading');
@@ -860,10 +853,8 @@
       if (btn) { btn.style.opacity = ''; btn.style.pointerEvents = ''; }
       rdxClicked = false;
       if (!e.persisted) return;
-      // 복원 시 이전 주문은 이미 써버렸을 수 있음 -> 폐기하고 다음 관심 신호에 새로 준비
+      // 복원 시 이전 주문은 이미 써버렸을 수 있음 -> 폐기 (다음 클릭 때 새로 생성)
       rdxOrder = { status: 'idle', promise: null, paymentUrl: null };
-      rdxArmed = false;
-      rdxArmPrefetch();
       var v = document.getElementById('introVideo');
       if (v && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
     });
