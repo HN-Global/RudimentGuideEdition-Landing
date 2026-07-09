@@ -2208,6 +2208,53 @@ fullset-feature__item-pad {
   white-space: nowrap;
 }
 
+/* 리뷰 보기 버튼 (바 우측 합류) */
+.floating-buy__reviews {
+  grid-column: 4;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 76px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 180, 0, 0.55);
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.floating-buy__reviews:hover {
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.floating-buy__reviews .fb-rv-stars {
+  color: #ffb400;
+  font-size: 16px;
+  letter-spacing: 1px;
+  flex: none;
+}
+
+.floating-buy__reviews .fb-rv-text {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.floating-buy__reviews .fb-rv-text small {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.62);
+  margin-top: 2px;
+  letter-spacing: 0;
+}
+
 @media (max-width: 859px) {
   .floating-buy {
     width: min(540px, calc(100vw - 12px)); /* 너무 넓어지지 않게 폭 제한 */
@@ -2216,8 +2263,8 @@ fullset-feature__item-pad {
 
     bottom: max(14px, env(safe-area-inset-bottom));
 
-    column-gap: clamp(14px, 3vw, 24px);
-    grid-template-columns: 1fr 1px auto;
+    column-gap: clamp(9px, 2.2vw, 18px);
+    grid-template-columns: 1fr 1px auto auto;
     padding: 0 clamp(8px, 1.6vw, 14px) 0 0;
   }
 
