@@ -2182,7 +2182,7 @@ fullset-feature__item-pad {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 236px;
+  width: 300px;
   height: 76px;
   border: 0;
   cursor: pointer;
@@ -2208,47 +2208,6 @@ fullset-feature__item-pad {
   white-space: nowrap;
 }
 
-/* 로켓배송(쿠팡) 버튼 */
-.floating-buy__rocket {
-  grid-column: 4;
-  grid-row: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  height: 76px;
-  padding: 0 26px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #3fb2f0 0%, #1b8fe0 60%, #0f82d6 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -10px 18px rgba(6, 60, 110, 0.28),
-    0 0 0 1px rgba(120, 200, 250, 0.6),
-    0 0 18px rgba(27, 143, 224, 0.4);
-  color: #fff;
-  text-decoration: none;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: filter 0.2s ease;
-}
-
-.floating-buy__rocket:hover {
-  filter: brightness(1.07);
-}
-
-.floating-buy__rocket-icon {
-  font-size: 22px;
-  line-height: 1;
-  flex: none;
-}
-
-.floating-buy__rocket-text {
-  font-family: "Pretendard", "Noto Sans KR", sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-}
-
 @media (max-width: 859px) {
   .floating-buy {
     width: min(540px, calc(100vw - 12px)); /* 너무 넓어지지 않게 폭 제한 */
@@ -2257,8 +2216,8 @@ fullset-feature__item-pad {
 
     bottom: max(14px, env(safe-area-inset-bottom));
 
-    column-gap: clamp(9px, 2.2vw, 18px);
-    grid-template-columns: 1fr 1px auto auto;
+    column-gap: clamp(14px, 3vw, 24px);
+    grid-template-columns: 1fr 1px auto;
     padding: 0 clamp(8px, 1.6vw, 14px) 0 0;
   }
 
@@ -2280,37 +2239,14 @@ fullset-feature__item-pad {
   }
 
   .floating-buy__cta {
-    width: clamp(104px, 27vw, 150px);
+    width: clamp(146px, 42vw, 200px);
     height: clamp(50px, 8.5vw, 64px);
   }
 
   .floating-buy__cta-text {
-    font-size: clamp(16px, 4.1vw, 22px);
+    font-size: clamp(18px, 4.6vw, 23px);
     font-weight: 600;
   }
-
-  .floating-buy__rocket {
-    height: clamp(50px, 8.5vw, 64px);
-    padding: 0 clamp(10px, 2.8vw, 20px);
-    gap: 5px;
-  }
-
-  .floating-buy__rocket-icon {
-    font-size: clamp(15px, 4vw, 20px);
-  }
-
-  .floating-buy__rocket-text {
-    font-size: clamp(15px, 3.9vw, 22px);
-  }
-}
-
-/* 좁은 화면: 상품명 숨기고(페이지 곳곳에 있음) 가격 + 두 버튼(구매하기/로켓배송) 공간 확보 */
-@media (max-width: 440px) {
-  .floating-buy { column-gap: clamp(6px, 1.8vw, 10px); }
-  .floating-buy__info { padding-left: clamp(8px, 2.6vw, 16px); }
-  .floating-buy__info strong { display: none; }
-  .floating-buy__cta { width: clamp(84px, 24vw, 120px); }
-  .floating-buy__rocket { padding: 0 clamp(8px, 2.4vw, 14px); gap: 4px; }
 }
 
 .package__copy {
