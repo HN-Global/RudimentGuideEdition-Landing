@@ -2108,7 +2108,7 @@ fullset-feature__item-pad {
   left: 50%;
   z-index: 50;
   display: grid;
-  grid-template-columns: 1fr 1px auto auto;
+  grid-template-columns: 1fr 1px auto;
   align-items: center;
   align-content: center;
   column-gap: 26px;
