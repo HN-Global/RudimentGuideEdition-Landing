@@ -796,13 +796,13 @@
     <div class="rv">
       <div class="rv__top">
         <p class="rv__eyebrow">REAL REVIEWS</p>
-        <h2 class="rv__title">실사용자 <b>28개 구매후기</b></h2>
+        <h2 class="rv__title">실사용자 <b>53개 구매후기</b></h2>
       </div>
 
       <section class="rv__summary">
         <div class="rv__stars-big">★★★★★</div>
         <div class="rv__score-big">5.0 <span>/ 5점 만점</span></div>
-        <div class="rv__count-big">총 <b>28개</b> 리뷰 · 100% 만족</div>
+        <div class="rv__count-big">총 <b>53개</b> 리뷰 · 100% 만족</div>
       </section>
 
       <h3 class="rv__section-title">네이버 리뷰 <span class="rv__badge rv__badge--nv">네이버</span> <em>블로그 3편</em></h3>
@@ -821,9 +821,9 @@
     <button class="floating-buy__cta" type="button" onclick="rdxBuy()" aria-label="루디먼트 가이드 에디션 88,000원 구매하기">
       <span class="floating-buy__cta-text">구매하기</span>
     </button>
-    <button class="floating-buy__reviews" id="rdxReviewsToggle" type="button" aria-label="구매후기 28건 확인하기" onclick="rdxToggleReviews()">
+    <button class="floating-buy__reviews" id="rdxReviewsToggle" type="button" aria-label="구매후기 53건 확인하기" onclick="rdxToggleReviews()">
       <svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#ffb400"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg>
-      <span class="fb-rv-text">구매후기<small>실사용 28건</small></span>
+      <span class="fb-rv-text">구매후기<small>실사용 53건</small></span>
     </button>
   </div>
 
@@ -881,13 +881,17 @@
         var pct = (window.scrollY || doc.scrollTop) / max;
         if (pct < 0.1) return;
         done = true;
-        window.removeEventListener('scroll', trigger);
         var rv = document.getElementById('rdxReviewsView');
         if (rv && !rv.hidden) return; // 이미 후기 열림 -> 안 띄움
         positionToast();
         toast.classList.add('is-show');
-        // 자동으로 사라지지 않음. 후기 뷰를 열면 그때 숨김(아래 rdxToggleReviews에서 처리).
+        // 자동으로 사라지지 않음. 후기 뷰를 열면 그때 숨김(rdxHideRvToast).
       }
+      // 후기 버튼을 누르면 토스트 숨김 + 재무장(다시 상페 스크롤하면 또 뜸)
+      window.rdxHideRvToast = function () {
+        toast.classList.remove('is-show');
+        done = false; // 다음에 다시 10% 스크롤하면 재등장
+      };
       // 위치 재계산 (창 크기/방향 바뀌어도 버튼 위에 유지)
       window.addEventListener('resize', function () { if (toast.classList.contains('is-show')) positionToast(); }, { passive: true });
       window.addEventListener('scroll', trigger, { passive: true });
@@ -1209,6 +1213,7 @@
         var rv = document.getElementById('rdxReviewsView');
         var btn = document.getElementById('rdxReviewsToggle');
         if (open) {
+          try { if (typeof window.rdxHideRvToast === 'function') window.rdxHideRvToast(); } catch (e) {}
           if (main) main.style.display = 'none';
           document.body.style.height = 'auto';
           rv.hidden = false;
@@ -1220,7 +1225,7 @@
         } else {
           rv.hidden = true;
           if (main) main.style.display = '';
-          btn.innerHTML = '<svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#ffb400"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg><span class="fb-rv-text">구매후기<small>실사용 28건</small></span>';
+          btn.innerHTML = '<svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#ffb400"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg><span class="fb-rv-text">구매후기<small>실사용 53건</small></span>';
           window.dispatchEvent(new Event('resize'));
           window.scrollTo(0, 0);
           try { if (typeof gtag === 'function') gtag('event', 'click_detail'); } catch (e) {}
