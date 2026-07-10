@@ -2310,13 +2310,18 @@ fullset-feature__item-pad {
   .floating-buy__reviews .fb-rv-text small { font-size: clamp(10px, 2.6vw, 11px); }
 }
 
-/* 좁은 화면: 상품명 숨기고 가격 + 구매하기 + 후기 공간 확보 */
+/* 좁은 화면: 상품명은 유지하되 폰트 축소 + 버튼 압축으로 3요소 모두 노출 */
 @media (max-width: 440px) {
-  .floating-buy { column-gap: clamp(6px, 1.8vw, 10px); }
-  .floating-buy__info { padding-left: clamp(8px, 2.6vw, 16px); }
-  .floating-buy__info strong { display: none; }
-  .floating-buy__cta { width: clamp(84px, 24vw, 120px); }
-  .floating-buy__reviews { padding: 0 clamp(8px, 2.2vw, 12px); gap: 5px; }
+  .floating-buy { column-gap: clamp(5px, 1.6vw, 9px); }
+  .floating-buy__info { padding-left: clamp(7px, 2.4vw, 14px); }
+  .floating-buy__info strong { font-size: clamp(9.5px, 2.9vw, 13px); }
+  .floating-buy__info em { font-size: clamp(17px, 4.6vw, 22px); }
+  .floating-buy__cta { width: clamp(78px, 22.5vw, 116px); }
+  .floating-buy__cta-text { font-size: clamp(15px, 3.9vw, 21px); }
+  .floating-buy__reviews { padding: 0 clamp(7px, 2vw, 12px); gap: 5px; }
+  .floating-buy__reviews .fb-rv-icon { width: clamp(18px, 4.6vw, 24px); height: clamp(18px, 4.6vw, 24px); }
+  .floating-buy__reviews .fb-rv-text { font-size: clamp(11px, 3vw, 15px); }
+  .floating-buy__reviews .fb-rv-text small { font-size: clamp(9px, 2.4vw, 11px); }
 }
 
 .package__copy {
