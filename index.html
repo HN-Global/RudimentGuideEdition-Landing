@@ -33,7 +33,7 @@
   <meta name="twitter:description" content="드럼 입문자를 위한 최고의 가치. 올바른 시작의 기준을 만나보세요." />
   <meta name="twitter:image" content="https://edition.rudix.biz/images/og-image.png" />
 
-  <link rel="stylesheet" href="./style.css?v=20260706-12" />
+  <link rel="stylesheet" href="./style.css?v=20260706-14" />
 
   <!-- ===== 추적: GA4 + Meta 픽셀 (루딕스 자사몰 속성 공유) ===== -->
   <!-- Google Analytics 4 -->
@@ -654,7 +654,61 @@
       </div>
     </section>
 
-    <section class="product-details" aria-label="제품 상세"></section>
+    <section class="product-details-top" aria-label="제품 사이즈 및 구성"></section>
+
+    <!-- 교보문고 정식 출간 도서 소개 -->
+    <style>
+      .book-intro { width: 860px; background: #080808; padding: 24px 40px 56px; }
+      .book-intro__inner { display: flex; gap: 34px; align-items: center; background: #141414;
+        border: 1px solid rgba(255,255,255,0.09); border-radius: 20px; padding: 34px; }
+      .book-intro__cover { width: 200px; height: auto; flex: none; border-radius: 8px; box-shadow: 0 10px 34px rgba(0,0,0,0.55); }
+      .book-intro__info { color: #f4f4f4; min-width: 0; }
+      .book-intro__badge { display: inline-block; font-size: 14px; font-weight: 700; color: #4fd07a;
+        background: rgba(45,190,90,0.14); padding: 6px 14px; border-radius: 20px; margin-bottom: 16px; }
+      .book-intro__title { font-size: 30px; font-weight: 800; margin: 0 0 8px; line-height: 1.2; }
+      .book-intro__meta { font-size: 15px; color: rgba(255,255,255,0.6); margin: 0 0 16px; }
+      .book-intro__desc { font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.8); margin: 0 0 18px; }
+      .book-intro__price { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; }
+      .book-intro__price-now { font-size: 28px; font-weight: 800; color: #ff5a2c; }
+      .book-intro__price-org { font-size: 16px; color: rgba(255,255,255,0.45); text-decoration: line-through; }
+      .book-intro__link { display: inline-block; padding: 13px 26px; border-radius: 12px; background: #fff;
+        color: #111; font-size: 16px; font-weight: 700; text-decoration: none; transition: background .2s; }
+      .book-intro__link:hover { background: #eee; }
+      .book-intro__note { font-size: 13px; color: rgba(255,255,255,0.5); margin: 16px 0 0; }
+      .book-intro__note b { color: #ffb400; font-weight: 700; }
+      /* 모바일은 페이지 스케일에 눌리므로 키움 */
+      .is-mobile .book-intro__cover { width: 280px; }
+      .is-mobile .book-intro__badge { font-size: 26px; padding: 10px 22px; border-radius: 30px; margin-bottom: 22px; }
+      .is-mobile .book-intro__title { font-size: 46px; }
+      .is-mobile .book-intro__meta { font-size: 25px; margin-bottom: 22px; }
+      .is-mobile .book-intro__desc { font-size: 28px; margin-bottom: 26px; }
+      .is-mobile .book-intro__price-now { font-size: 46px; }
+      .is-mobile .book-intro__price-org { font-size: 27px; }
+      .is-mobile .book-intro__link { font-size: 30px; padding: 22px 42px; border-radius: 20px; }
+      .is-mobile .book-intro__note { font-size: 23px; margin-top: 24px; }
+      @media (max-width: 640px) {
+        .book-intro__inner { flex-direction: column; text-align: center; }
+        .book-intro__price { justify-content: center; }
+      }
+    </style>
+    <section class="book-intro" aria-label="교보문고 정식 출간 도서">
+      <div class="book-intro__inner">
+        <img class="book-intro__cover" src="./images/book-cover.webp" alt="Mastering The Rudiment 표지" width="340" height="400" loading="lazy" decoding="async" />
+        <div class="book-intro__info">
+          <span class="book-intro__badge">📚 교보문고 정식 출간 도서</span>
+          <h3 class="book-intro__title">Mastering The Rudiment</h3>
+          <p class="book-intro__meta">루딕스 지음 · 유페이퍼 · 2026.04 출간 · 32쪽</p>
+          <p class="book-intro__desc">‘드럼의 본질을 깨우는 7일’. Yamaha 교육 전문가의 방법론과 뇌과학 기반 1-3-1 시스템으로, 하루 25분 영상 수련을 통해 입문자도 전공생 수준의 기초를 완성하도록 설계된 정식 출간 교재입니다.</p>
+          <div class="book-intro__price">
+            <span class="book-intro__price-now">25,000원</span>
+          </div>
+          <a class="book-intro__link" href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/480D260420150" target="_blank" rel="noopener noreferrer" onclick="try{ if(typeof gtag==='function') gtag('event','click_kyobo_book'); }catch(e){}">교보문고에서 보기 →</a>
+          <p class="book-intro__note">※ 이 교재(<b>정가 25,000원</b>)가 본 세트에 그대로 포함되어 있습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-details-bottom" aria-label="제품 상세"></section>
 
     <section class="closing-story" aria-labelledby="closing-story-title">
       <header class="closing-story__header">
@@ -767,7 +821,7 @@
       <span class="floating-buy__cta-text">구매하기</span>
     </button>
     <button class="floating-buy__reviews" id="rdxReviewsToggle" type="button" aria-label="구매후기 28건 확인하기" onclick="rdxToggleReviews()">
-      <svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#ffb400"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg>
+      <svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#c9c9c9"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg>
       <span class="fb-rv-text">구매후기<small>실사용 28건</small></span>
     </button>
   </div>
@@ -1097,7 +1151,7 @@
         } else {
           rv.hidden = true;
           if (main) main.style.display = '';
-          btn.innerHTML = '<svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#ffb400"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg><span class="fb-rv-text">구매후기<small>실사용 28건</small></span>';
+          btn.innerHTML = '<svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#c9c9c9"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg><span class="fb-rv-text">구매후기<small>실사용 28건</small></span>';
           window.dispatchEvent(new Event('resize'));
           window.scrollTo(0, 0);
           try { if (typeof gtag === 'function') gtag('event', 'click_detail'); } catch (e) {}

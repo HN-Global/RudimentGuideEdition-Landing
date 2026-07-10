@@ -1997,14 +1997,24 @@ fullset-feature__item-pad {
   font-size: 20px;
 }
 
-.product-details {
+.product-details-top {
   width: 860px;
-  height: 2643px;
+  height: 1906px;
   background-color: #080808;
-  background-image: url("./images/detail.webp");
+  background-image: url("./images/detail-top.webp");
   background-repeat: no-repeat;
   background-position: center top;
-  background-size: 860px 2643px;
+  background-size: 860px 1906px;
+}
+
+.product-details-bottom {
+  width: 860px;
+  height: 736px;
+  background-color: #080808;
+  background-image: url("./images/detail-bottom.webp");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 860px 736px;
 }
 
 .closing-story {
@@ -2221,9 +2231,9 @@ fullset-feature__item-pad {
   padding: 0 20px;
   border: 0;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.07);
-  box-shadow: inset 0 0 0 1.5px rgba(255, 180, 0, 0.55);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.26);
+  color: #e8e8e8;
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -2231,7 +2241,7 @@ fullset-feature__item-pad {
 }
 
 .floating-buy__reviews:hover {
-  background: rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .floating-buy__reviews .fb-rv-icon {
