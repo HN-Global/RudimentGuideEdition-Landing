@@ -2301,23 +2301,22 @@ fullset-feature__item-pad {
 
   .floating-buy__reviews {
     height: clamp(50px, 8.5vw, 64px);
-    padding: 0 clamp(10px, 2.6vw, 18px);
-    gap: 6px;
+    padding: 0 clamp(10px, 2.6vw, 16px);
+    gap: 7px;
   }
 
-  .floating-buy__reviews .fb-rv-stars { font-size: clamp(11px, 3vw, 15px); }
-  .floating-buy__reviews .fb-rv-text { font-size: clamp(12px, 3.2vw, 15px); }
-  .floating-buy__reviews .fb-rv-text small { font-size: clamp(10px, 2.6vw, 12px); }
+  .floating-buy__reviews .fb-rv-icon { width: clamp(20px, 5vw, 26px); height: clamp(20px, 5vw, 26px); }
+  .floating-buy__reviews .fb-rv-text { font-size: clamp(12px, 3.3vw, 16px); }
+  .floating-buy__reviews .fb-rv-text small { font-size: clamp(10px, 2.6vw, 11px); }
 }
 
-/* 좁은 화면: 상품명 숨기고 가격 + 구매하기 + 리뷰 공간 확보 */
+/* 좁은 화면: 상품명 숨기고 가격 + 구매하기 + 후기 공간 확보 */
 @media (max-width: 440px) {
   .floating-buy { column-gap: clamp(6px, 1.8vw, 10px); }
   .floating-buy__info { padding-left: clamp(8px, 2.6vw, 16px); }
   .floating-buy__info strong { display: none; }
   .floating-buy__cta { width: clamp(84px, 24vw, 120px); }
-  .floating-buy__reviews { padding: 0 clamp(8px, 2.2vw, 13px); gap: 4px; }
-  .floating-buy__reviews .fb-rv-stars { display: none; }
+  .floating-buy__reviews { padding: 0 clamp(8px, 2.2vw, 12px); gap: 5px; }
 }
 
 .package__copy {
