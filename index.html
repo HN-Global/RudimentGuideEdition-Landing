@@ -886,11 +886,10 @@
         if (rv && !rv.hidden) return; // 이미 후기 열림 -> 안 띄움
         positionToast();
         toast.classList.add('is-show');
-        setTimeout(function () {
-          toast.classList.add('is-hide');
-          setTimeout(function () { toast.classList.remove('is-show', 'is-hide'); }, 380);
-        }, 3000);
+        // 자동으로 사라지지 않음. 후기 뷰를 열면 그때 숨김(아래 rdxToggleReviews에서 처리).
       }
+      // 위치 재계산 (창 크기/방향 바뀌어도 버튼 위에 유지)
+      window.addEventListener('resize', function () { if (toast.classList.contains('is-show')) positionToast(); }, { passive: true });
       window.addEventListener('scroll', trigger, { passive: true });
     })();
   </script>
