@@ -791,6 +791,35 @@
       .rv__blog-card { grid-template-columns: 96px 1fr; gap: 12px; }
       .rv__blog-thumb { width: 96px; height: 88px; }
     }
+    /* 언론 보도 */
+    .rv__press { margin: 8px 0 4px; }
+    .rv__press-eyebrow { display: flex; align-items: center; justify-content: center; gap: 8px;
+      font-size: 12px; letter-spacing: 0.16em; color: rgba(255,255,255,0.5); font-weight: 700; margin: 0 0 14px; }
+    .rv__press-eyebrow::before, .rv__press-eyebrow::after { content: ""; width: 34px; height: 1px; background: rgba(255,255,255,0.18); }
+    .rv__press-card { display: flex; align-items: center; gap: 16px; text-decoration: none;
+      background: linear-gradient(135deg, #1c1c1c, #141414); border: 1px solid rgba(255,180,0,0.28);
+      border-radius: 16px; padding: 20px 22px; transition: border-color .15s, transform .15s; }
+    .rv__press-card:hover { border-color: rgba(255,180,0,0.55); transform: translateY(-2px); }
+    .rv__press-icon { flex: none; width: 46px; height: 46px; border-radius: 12px; background: rgba(255,180,0,0.14);
+      display: flex; align-items: center; justify-content: center; font-size: 24px; }
+    .rv__press-body { min-width: 0; }
+    .rv__press-tag { font-size: 11px; font-weight: 800; letter-spacing: 0.04em; color: #ffb400; margin: 0 0 5px; }
+    .rv__press-title { font-size: 16px; font-weight: 700; line-height: 1.45; color: #fff; margin: 0 0 5px;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .rv__press-meta { font-size: 12px; color: rgba(255,255,255,0.5); margin: 0; }
+    .rv__press-arrow { flex: none; color: rgba(255,255,255,0.4); font-size: 20px; }
+    /* 쿠팡 리뷰 더보기 */
+    #cpReviews.is-clamped .rv__card.rv-extra { display: none; }
+    .rv__showall { display: block; width: 100%; margin: 4px 0 8px; padding: 15px;
+      background: #161616; border: 1px solid rgba(255,255,255,0.12); border-radius: 14px;
+      color: #fff; font-size: 15px; font-weight: 700; letter-spacing: -0.02em; cursor: pointer; transition: background .15s; }
+    .rv__showall:hover { background: #1e1e1e; }
+    .rv__showall b { color: #ff875c; }
+    @media (max-width: 859px) {
+      .rv__press-card { padding: 16px; gap: 12px; }
+      .rv__press-icon { width: 40px; height: 40px; font-size: 20px; }
+      .rv__press-title { font-size: 14.5px; }
+    }
   </style>
   <section id="rdxReviewsView" hidden aria-label="구매후기">
     <div class="rv">
@@ -798,6 +827,19 @@
         <p class="rv__eyebrow">REAL REVIEWS</p>
         <h2 class="rv__title">실사용자 <b>53개 구매후기</b></h2>
       </div>
+
+      <section class="rv__press">
+        <p class="rv__press-eyebrow">언론도 주목한 제품</p>
+        <a class="rv__press-card" href="https://www.siminilbo.co.kr/news/newsview.php?ncode=1160270589510560" target="_blank" rel="noopener noreferrer" onclick="try{gtag('event','click_press')}catch(e){}">
+          <span class="rv__press-icon">📰</span>
+          <span class="rv__press-body">
+            <span class="rv__press-tag">시민일보 보도</span>
+            <span class="rv__press-title">루딕스, 드럼 입문 올인원 패키지 '루디먼트 가이드 에디션' 공식 출시</span>
+            <span class="rv__press-meta">시민일보 · 2026.03.13 · 기사 전문 보기</span>
+          </span>
+          <span class="rv__press-arrow">→</span>
+        </a>
+      </section>
 
       <section class="rv__summary">
         <div class="rv__stars-big">★★★★★</div>
@@ -808,8 +850,9 @@
       <h3 class="rv__section-title">네이버 리뷰 <span class="rv__badge rv__badge--nv">네이버</span> <em>블로그 3편</em></h3>
       <div class="rv__blog" id="nvReviews"></div>
 
-      <h3 class="rv__section-title">쿠팡 리뷰 <span class="rv__badge rv__badge--cp">쿠팡</span> <em>5점 만점 25개</em></h3>
-      <div class="rv__grid" id="cpReviews"></div>
+      <h3 class="rv__section-title">쿠팡 리뷰 <span class="rv__badge rv__badge--cp">쿠팡</span> <em id="cpCountLabel">5점 만점</em></h3>
+      <div class="rv__grid is-clamped" id="cpReviews"></div>
+      <button class="rv__showall" id="cpShowAll" type="button" hidden></button>
     </div>
   </section>
 
@@ -1153,7 +1196,7 @@
   </script>
 
   <!-- 구매후기 렌더링 + 인페이지 토글 -->
-  <script src="./reviews-data.js?v=1"></script>
+  <script src="./reviews-data.js?v=2"></script>
   <script>
     (function () {
       var D = window.RDX_REVIEWS || { coupang: [], naver: [] };
@@ -1173,15 +1216,19 @@
         nv.appendChild(a);
       });
 
-      // 쿠팡 별점 리뷰
+      // 쿠팡 별점 리뷰 (상위 VISIBLE_CP개만 먼저, 나머지는 '더보기'로 펼침)
+      var VISIBLE_CP = 20;
       var cp = document.getElementById('cpReviews');
-      D.coupang.forEach(function (r) {
+      var cpCount = D.coupang.length;
+      var cpLabel = document.getElementById('cpCountLabel');
+      if (cpLabel) cpLabel.textContent = '5점 만점 ' + cpCount + '개';
+      D.coupang.forEach(function (r, idx) {
         var name = r.name || '쿠팡 구매고객';
         var imgs = (r.images || []).map(function (u) {
           return '<a href="' + esc(u) + '" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="' + esc(u) + '" alt="구매자 리뷰 사진"></a>';
         }).join('');
         var card = document.createElement('article');
-        card.className = 'rv__card';
+        card.className = 'rv__card' + (idx >= VISIBLE_CP ? ' rv-extra' : '');
         card.innerHTML =
           '<div class="rv__card-head"><span class="rv__card-stars">★★★★★</span><span class="rv__card-src">쿠팡</span></div>'
           + (imgs ? '<div class="rv__card-imgs">' + imgs + '</div>' : '')
@@ -1194,6 +1241,24 @@
           this.textContent = open ? '접기' : '더보기';
         });
       });
+
+      // 상위 20개만 노출 + '더 많은 리뷰' 펼침 버튼
+      var cpShowAll = document.getElementById('cpShowAll');
+      if (cpShowAll) {
+        var hidden = cpCount - VISIBLE_CP;
+        if (hidden > 0) {
+          cpShowAll.hidden = false;
+          cpShowAll.innerHTML = '쿠팡 리뷰 <b>' + hidden + '개</b> 더 보기 ▾';
+          cpShowAll.addEventListener('click', function () {
+            cp.classList.remove('is-clamped');
+            cpShowAll.hidden = true;
+            moreSetup = false; setupMore(); // 펼친 카드도 더보기 버튼 정리
+            try { if (typeof gtag === 'function') gtag('event', 'click_reviews_showall'); } catch (e) {}
+          });
+        } else {
+          cp.classList.remove('is-clamped');
+        }
+      }
 
       // 뷰가 보일 때 한번 "더보기" 필요 없는(짧은) 카드는 버튼 숨김 (숨김 상태에선 높이 0이라 못 잼)
       var moreSetup = false;
