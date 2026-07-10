@@ -827,6 +827,64 @@
     </button>
   </div>
 
+  <!-- 구매후기 유도 토스트 (스크롤 10% 도달 시 1회, 버튼 위로 띠용 -> 3초 뒤 사라짐) -->
+  <style>
+    #rdxRvToast {
+      position: fixed; right: 20px; bottom: 168px; z-index: 60;
+      max-width: calc(100vw - 40px);
+      padding: 12px 18px; border-radius: 16px;
+      background: linear-gradient(135deg, #ff7f43, #ea5c2a);
+      color: #fff; font-family: "Noto Sans KR", sans-serif;
+      font-size: 15px; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap;
+      box-shadow: 0 10px 26px rgba(234, 92, 42, 0.5);
+      cursor: pointer; visibility: hidden; opacity: 0; transform: translateY(14px) scale(0.9);
+    }
+    #rdxRvToast::after {
+      content: ""; position: absolute; right: 40px; bottom: -7px;
+      width: 15px; height: 15px; background: #ea5c2a; transform: rotate(45deg); border-radius: 3px;
+    }
+    #rdxRvToast.is-show { visibility: visible; animation: rvToastPop 0.75s cubic-bezier(.2, 1.25, .4, 1) both; }
+    #rdxRvToast.is-show.is-hide { animation: rvToastOut 0.35s ease forwards; }
+    @keyframes rvToastPop {
+      0% { opacity: 0; transform: translateY(18px) scale(0.82); }
+      45% { opacity: 1; transform: translateY(-9px) scale(1.06); }
+      65% { transform: translateY(4px) scale(0.98); }
+      82% { transform: translateY(-3px) scale(1.01); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes rvToastOut { to { opacity: 0; transform: translateY(10px) scale(0.92); } }
+    @media (max-width: 859px) {
+      #rdxRvToast { right: 12px; bottom: clamp(112px, 21vw, 126px); font-size: 14px; padding: 11px 15px; }
+      #rdxRvToast::after { right: 30px; }
+    }
+  </style>
+  <div id="rdxRvToast" role="status" onclick="try{ rdxToggleReviews(); }catch(e){}">👀 생생한 실사용 후기도 확인해보세요!</div>
+  <script>
+    (function () {
+      var toast = document.getElementById('rdxRvToast');
+      if (!toast) return;
+      var done = false;
+      function trigger() {
+        if (done) return;
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - window.innerHeight;
+        if (max <= 0) return;
+        var pct = (window.scrollY || doc.scrollTop) / max;
+        if (pct < 0.1) return;
+        done = true;
+        window.removeEventListener('scroll', trigger);
+        var rv = document.getElementById('rdxReviewsView');
+        if (rv && !rv.hidden) return; // 이미 후기 열림 -> 안 띄움
+        toast.classList.add('is-show');
+        setTimeout(function () {
+          toast.classList.add('is-hide');
+          setTimeout(function () { toast.classList.remove('is-show', 'is-hide'); }, 380);
+        }, 3000);
+      }
+      window.addEventListener('scroll', trigger, { passive: true });
+    })();
+  </script>
+
   <script src="./script.js?v=9"></script>
 
   <!-- 인트로 영상 소리 켜기/끄기 토글 -->
