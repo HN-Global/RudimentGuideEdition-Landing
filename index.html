@@ -33,7 +33,7 @@
   <meta name="twitter:description" content="드럼 입문자를 위한 최고의 가치. 올바른 시작의 기준을 만나보세요." />
   <meta name="twitter:image" content="https://edition.rudix.biz/images/og-image.png" />
 
-  <link rel="stylesheet" href="./style.css?v=20260706-11" />
+  <link rel="stylesheet" href="./style.css?v=20260706-12" />
 
   <!-- ===== 추적: GA4 + Meta 픽셀 (루딕스 자사몰 속성 공유) ===== -->
   <!-- Google Analytics 4 -->
@@ -129,6 +129,15 @@
       .video-pick__label { position: absolute; left: 16px; right: 16px; bottom: 20px; z-index: 3; color: #fff; font-size: 19px; font-weight: 700; text-align: left; }
       .video-pick__label small { display: block; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.74); margin-top: 5px; }
       .video-pick__hint { margin-top: 30px; font-size: 14px; color: rgba(255,255,255,0.5); }
+      /* 모바일은 페이지 스케일에 눌려 글자가 작아지므로 키움 */
+      .is-mobile .video-pick__eyebrow { font-size: 26px; }
+      .is-mobile .video-pick__title { font-size: 48px; }
+      .is-mobile .video-pick__sub { font-size: 29px; }
+      .is-mobile .video-pick__label { font-size: 36px; }
+      .is-mobile .video-pick__label small { font-size: 24px; margin-top: 8px; }
+      .is-mobile .video-pick__badge { font-size: 22px; padding: 8px 16px; gap: 8px; }
+      .is-mobile .video-pick__badge i { width: 12px; height: 12px; }
+      .is-mobile .video-pick__hint { font-size: 26px; }
     </style>
     <section class="video-pick" aria-label="제품 영상">
       <p class="video-pick__eyebrow">REAL VIDEO</p>

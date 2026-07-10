@@ -2324,6 +2324,15 @@ fullset-feature__item-pad {
   .floating-buy__reviews .fb-rv-text small { font-size: clamp(9px, 2.4vw, 11px); }
 }
 
+/* 인트로 영상 소리버튼: 모바일은 페이지 스케일에 눌려 작아지므로 크게 키움 */
+.is-mobile #introUnmute {
+  font-size: 38px !important;
+  padding: 22px 42px !important;
+  gap: 12px !important;
+  border-radius: 60px !important;
+  bottom: 34px !important;
+}
+
 .package__copy {
   position: absolute;
   bottom: 30px;
