@@ -864,6 +864,15 @@
       var toast = document.getElementById('rdxRvToast');
       if (!toast) return;
       var done = false;
+      // 구매후기 버튼 실제 위치 위에 우측정렬로 붙임 (PC에서 화면 끝으로 안 벗어나게)
+      function positionToast() {
+        var btn = document.getElementById('rdxReviewsToggle');
+        if (!btn) return;
+        var r = btn.getBoundingClientRect();
+        toast.style.left = 'auto';
+        toast.style.right = Math.max(8, Math.round(window.innerWidth - r.right)) + 'px';
+        toast.style.bottom = Math.round(window.innerHeight - r.top + 12) + 'px';
+      }
       function trigger() {
         if (done) return;
         var doc = document.documentElement;
@@ -875,6 +884,7 @@
         window.removeEventListener('scroll', trigger);
         var rv = document.getElementById('rdxReviewsView');
         if (rv && !rv.hidden) return; // 이미 후기 열림 -> 안 띄움
+        positionToast();
         toast.classList.add('is-show');
         setTimeout(function () {
           toast.classList.add('is-hide');
