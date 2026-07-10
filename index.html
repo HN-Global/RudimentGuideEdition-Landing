@@ -33,7 +33,7 @@
   <meta name="twitter:description" content="드럼 입문자를 위한 최고의 가치. 올바른 시작의 기준을 만나보세요." />
   <meta name="twitter:image" content="https://edition.rudix.biz/images/og-image.png" />
 
-  <link rel="stylesheet" href="./style.css?v=20260706-14" />
+  <link rel="stylesheet" href="./style.css?v=20260706-15" />
 
   <!-- ===== 추적: GA4 + Meta 픽셀 (루딕스 자사몰 속성 공유) ===== -->
   <!-- Google Analytics 4 -->
@@ -738,7 +738,8 @@
 
   <!-- ===== 구매후기 뷰 (플로팅 버튼으로 인페이지 토글) ===== -->
   <style>
-    #rdxReviewsView { background: #0e0e0e; }
+    /* 리뷰 뷰는 자체 스크롤되는 고정 오버레이 -> 모바일 body 높이 재계산에 영향 안 받음 */
+    #rdxReviewsView { position: fixed; inset: 0; z-index: 40; overflow-y: auto; -webkit-overflow-scrolling: touch; background: #0e0e0e; }
     .rv { max-width: 900px; margin: 0 auto; padding: 0 20px 150px; color: #f4f4f4; }
     .rv__top { text-align: center; padding: 50px 0 30px; }
     .rv__eyebrow { font-size: 13px; letter-spacing: 0.22em; color: #ff5a2c; font-weight: 800; margin: 0 0 12px; }
@@ -821,7 +822,7 @@
       <span class="floating-buy__cta-text">구매하기</span>
     </button>
     <button class="floating-buy__reviews" id="rdxReviewsToggle" type="button" aria-label="구매후기 28건 확인하기" onclick="rdxToggleReviews()">
-      <svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#c9c9c9"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg>
+      <svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#ffb400"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg>
       <span class="fb-rv-text">구매후기<small>실사용 28건</small></span>
     </button>
   </div>
@@ -1144,6 +1145,7 @@
           if (main) main.style.display = 'none';
           document.body.style.height = 'auto';
           rv.hidden = false;
+          rv.scrollTop = 0;
           btn.innerHTML = '<svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4.5l-7 7.5 7 7.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="fb-rv-text">상세페이지<small>돌아가기</small></span>';
           setupMore();
           window.scrollTo(0, 0);
@@ -1151,7 +1153,7 @@
         } else {
           rv.hidden = true;
           if (main) main.style.display = '';
-          btn.innerHTML = '<svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#c9c9c9"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg><span class="fb-rv-text">구매후기<small>실사용 28건</small></span>';
+          btn.innerHTML = '<svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#ffb400"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg><span class="fb-rv-text">구매후기<small>실사용 28건</small></span>';
           window.dispatchEvent(new Event('resize'));
           window.scrollTo(0, 0);
           try { if (typeof gtag === 'function') gtag('event', 'click_detail'); } catch (e) {}
