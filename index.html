@@ -825,7 +825,7 @@
     <div class="rv">
       <div class="rv__top">
         <p class="rv__eyebrow">REAL REVIEWS</p>
-        <h2 class="rv__title">실사용자 <b>53개 구매후기</b></h2>
+        <h2 class="rv__title">실사용자 <b>54개 구매후기</b></h2>
       </div>
 
       <section class="rv__press">
@@ -844,10 +844,10 @@
       <section class="rv__summary">
         <div class="rv__stars-big">★★★★★</div>
         <div class="rv__score-big">5.0 <span>/ 5점 만점</span></div>
-        <div class="rv__count-big">총 <b>53개</b> 리뷰 · 100% 만족</div>
+        <div class="rv__count-big">총 <b>54개</b> 리뷰 · 100% 만족</div>
       </section>
 
-      <h3 class="rv__section-title">네이버 리뷰 <span class="rv__badge rv__badge--nv">네이버</span> <em>블로그 3편</em></h3>
+      <h3 class="rv__section-title">네이버 리뷰 <span class="rv__badge rv__badge--nv">네이버</span> <em>블로그 4편</em></h3>
       <div class="rv__blog" id="nvReviews"></div>
 
       <h3 class="rv__section-title">쿠팡 리뷰 <span class="rv__badge rv__badge--cp">쿠팡</span> <em id="cpCountLabel">5점 만점</em></h3>
@@ -864,9 +864,9 @@
     <button class="floating-buy__cta" type="button" onclick="rdxBuy()" aria-label="루디먼트 가이드 에디션 88,000원 구매하기">
       <span class="floating-buy__cta-text">구매하기</span>
     </button>
-    <button class="floating-buy__reviews" id="rdxReviewsToggle" type="button" aria-label="구매후기 53건 확인하기" onclick="rdxToggleReviews()">
+    <button class="floating-buy__reviews" id="rdxReviewsToggle" type="button" aria-label="구매후기 54건 확인하기" onclick="rdxToggleReviews()">
       <svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#ffb400"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg>
-      <span class="fb-rv-text">구매후기<small>실사용 53건</small></span>
+      <span class="fb-rv-text">구매후기<small>실사용 54건</small></span>
     </button>
   </div>
 
@@ -1136,6 +1136,11 @@
       if (v && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
     });
 
+    // 결제창에 '랜딩 유입' 플래그 부여 (해시는 주문/서버라우팅에 영향 없음)
+    function rdxWithFlag(u) {
+      try { return u + (u.indexOf('#') === -1 ? '#rdxclean' : ',rdxclean'); }
+      catch (e) { return u; }
+    }
     async function rdxBuy() {
       if (rdxClicked) return;
       rdxClicked = true;
@@ -1161,7 +1166,7 @@
       var loading = document.getElementById('rdxLoading');
       if (rdxOrder.status === 'ready' && rdxOrder.paymentUrl) {
         if (loading) loading.classList.add('is-active');
-        window.location.href = rdxOrder.paymentUrl;
+        window.location.href = rdxWithFlag(rdxOrder.paymentUrl);
         return;
       }
       // 클릭 시에만 주문 생성 -> 결제페이지로 이동 (생성 동안 로딩 스피너 표시)
@@ -1169,7 +1174,7 @@
       if (btn) { btn.style.opacity = '0.6'; btn.style.pointerEvents = 'none'; }
       try {
         var url = await rdxCreateOrder();
-        window.location.href = url;
+        window.location.href = rdxWithFlag(url);
       } catch (err) {
         if (loading) loading.classList.remove('is-active');
         alert('주문 처리 중 오류가 발생했습니다: ' + (err && err.message ? err.message : err));
@@ -1222,7 +1227,7 @@
   </script>
 
   <!-- 구매후기 렌더링 + 인페이지 토글 -->
-  <script src="./reviews-data.js?v=2"></script>
+  <script src="./reviews-data.js?v=3"></script>
   <script>
     (function () {
       var D = window.RDX_REVIEWS || { coupang: [], naver: [] };
@@ -1316,7 +1321,7 @@
         } else {
           rv.hidden = true;
           if (main) main.style.display = '';
-          btn.innerHTML = '<svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#ffb400"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg><span class="fb-rv-text">구매후기<small>실사용 53건</small></span>';
+          btn.innerHTML = '<svg class="fb-rv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h16A1.5 1.5 0 0 1 21.5 5v10A1.5 1.5 0 0 1 20 16.5H10.2L5.5 20v-3.5H4A1.5 1.5 0 0 1 2.5 15V5A1.5 1.5 0 0 1 4 3.5z" fill="#ffb400"/><rect x="5.7" y="7.3" width="9.4" height="1.7" rx=".85" fill="#141414"/><rect x="5.7" y="10.6" width="6.6" height="1.7" rx=".85" fill="#141414"/></svg><span class="fb-rv-text">구매후기<small>실사용 54건</small></span>';
           window.dispatchEvent(new Event('resize'));
           window.scrollTo(0, 0);
           try { if (typeof gtag === 'function') gtag('event', 'click_detail'); } catch (e) {}
