@@ -33,7 +33,7 @@
   <meta name="twitter:description" content="드럼 입문자를 위한 최고의 가치. 올바른 시작의 기준을 만나보세요." />
   <meta name="twitter:image" content="https://edition.rudix.biz/images/og-image.png" />
 
-  <link rel="stylesheet" href="./style.css?v=20260706-15" />
+  <link rel="stylesheet" href="./style.css?v=20260706-16" />
 
   <!-- ===== 추적: GA4 + Meta 픽셀 (루딕스 자사몰 속성 공유) ===== -->
   <!-- Google Analytics 4 -->
@@ -938,6 +938,28 @@
       // 위치 재계산 (창 크기/방향 바뀌어도 버튼 위에 유지)
       window.addEventListener('resize', function () { if (toast.classList.contains('is-show')) positionToast(); }, { passive: true });
       window.addEventListener('scroll', trigger, { passive: true });
+    })();
+  </script>
+
+  <!-- 플로팅 구매바: 스크롤 30% 지점에서 등장 -->
+  <script>
+    (function () {
+      var bar = document.querySelector('.floating-buy');
+      if (!bar) return;
+      var shown = false;
+      function check() {
+        if (shown) return;
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - window.innerHeight;
+        if (max <= 0) return;
+        var pct = (window.scrollY || doc.scrollTop) / max;
+        if (pct < 0.3) return; // 30% 넘어가면 등장
+        shown = true;
+        bar.classList.add('is-revealed');
+        window.removeEventListener('scroll', check);
+      }
+      window.addEventListener('scroll', check, { passive: true });
+      check();
     })();
   </script>
 

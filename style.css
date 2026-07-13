@@ -2140,7 +2140,18 @@ fullset-feature__item-pad {
   cursor: default;
   font-family: "Noto Sans KR", sans-serif;
   overflow: hidden;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(24px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.2, .9, .3, 1), visibility 0.4s ease;
+}
+
+.floating-buy.is-revealed {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .floating-buy::before {
