@@ -916,28 +916,32 @@
         toast.style.right = Math.max(8, Math.round(window.innerWidth - r.right)) + 'px';
         toast.style.bottom = Math.round(window.innerHeight - r.top + 12) + 'px';
       }
-      function trigger() {
-        if (done) return;
-        var doc = document.documentElement;
-        var max = doc.scrollHeight - window.innerHeight;
-        if (max <= 0) return;
-        var pct = (window.scrollY || doc.scrollTop) / max;
-        if (pct < 0.1) return;
-        done = true;
+      var scheduled = false, timer = null;
+      function showToast() {
         var rv = document.getElementById('rdxReviewsView');
         if (rv && !rv.hidden) return; // 이미 후기 열림 -> 안 띄움
+        done = true;
         positionToast();
         toast.classList.add('is-show');
         // 자동으로 사라지지 않음. 후기 뷰를 열면 그때 숨김(rdxHideRvToast).
       }
+      // 플로팅 바가 뜬 뒤 3초 후에 토스트 등장
+      function maybeSchedule() {
+        if (done || scheduled) return;
+        var bar = document.querySelector('.floating-buy');
+        if (!bar || !bar.classList.contains('is-revealed')) return; // 바 먼저 떠야 함
+        scheduled = true;
+        timer = setTimeout(showToast, 3000);
+      }
       // 후기 버튼을 누르면 토스트 숨김 + 재무장(다시 상페 스크롤하면 또 뜸)
       window.rdxHideRvToast = function () {
         toast.classList.remove('is-show');
-        done = false; // 다음에 다시 10% 스크롤하면 재등장
+        done = false; scheduled = false;
+        if (timer) { clearTimeout(timer); timer = null; }
       };
       // 위치 재계산 (창 크기/방향 바뀌어도 버튼 위에 유지)
       window.addEventListener('resize', function () { if (toast.classList.contains('is-show')) positionToast(); }, { passive: true });
-      window.addEventListener('scroll', trigger, { passive: true });
+      window.addEventListener('scroll', maybeSchedule, { passive: true });
     })();
   </script>
 
