@@ -1136,10 +1136,31 @@
       if (v && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
     });
 
-    // 결제창에 '랜딩 유입' 플래그 부여 (해시는 주문/서버라우팅에 영향 없음)
+    // 결제창으로 넘길 때: ① 랜딩 유입 UTM 전달  ② '랜딩 유입' 플래그(#rdxclean)
     function rdxWithFlag(u) {
-      try { return u + (u.indexOf('#') === -1 ? '#rdxclean' : ',rdxclean'); }
-      catch (e) { return u; }
+      try {
+        // 해시 분리 (order_code 등 쿼리 뒤, 해시 앞에 UTM 삽입)
+        var hash = '', hi = u.indexOf('#');
+        if (hi !== -1) { hash = u.slice(hi); u = u.slice(0, hi); }
+
+        // 현재 랜딩 URL의 광고 파라미터를 그대로 전달, 없으면 랜딩 식별 기본값
+        var cur = new URLSearchParams(location.search);
+        var keep = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'];
+        var out = new URLSearchParams();
+        keep.forEach(function (k) { var v = cur.get(k); if (v) out.set(k, v); });
+        if (!out.get('utm_source')) out.set('utm_source', 'edition_landing');
+        if (!out.get('utm_medium')) out.set('utm_medium', 'referral');
+        if (!out.get('utm_campaign')) out.set('utm_campaign', 'rudiment_guide_edition');
+
+        var qs = out.toString();
+        if (qs) u += (u.indexOf('?') === -1 ? '?' : '&') + qs;
+
+        // 랜딩 유입 플래그(해시) 재부착
+        if (hash.indexOf('rdxclean') === -1) hash = (hash ? hash + ',rdxclean' : '#rdxclean');
+        return u + hash;
+      } catch (e) {
+        return u + (u.indexOf('#') === -1 ? '#rdxclean' : '');
+      }
     }
     async function rdxBuy() {
       if (rdxClicked) return;
