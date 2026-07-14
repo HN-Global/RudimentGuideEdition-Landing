@@ -1143,14 +1143,11 @@
         var hash = '', hi = u.indexOf('#');
         if (hi !== -1) { hash = u.slice(hi); u = u.slice(0, hi); }
 
-        // 현재 랜딩 URL의 광고 파라미터를 그대로 전달, 없으면 랜딩 식별 기본값
+        // 현재 랜딩 URL에 실제로 있는 광고 파라미터만 그대로 전달 (없으면 안 붙임)
         var cur = new URLSearchParams(location.search);
         var keep = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'];
         var out = new URLSearchParams();
         keep.forEach(function (k) { var v = cur.get(k); if (v) out.set(k, v); });
-        if (!out.get('utm_source')) out.set('utm_source', 'edition_landing');
-        if (!out.get('utm_medium')) out.set('utm_medium', 'referral');
-        if (!out.get('utm_campaign')) out.set('utm_campaign', 'rudiment_guide_edition');
 
         var qs = out.toString();
         if (qs) u += (u.indexOf('?') === -1 ? '?' : '&') + qs;
